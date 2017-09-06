@@ -10,7 +10,7 @@ public class OrderProcessorTest {
 
   @Before
   public void setUp() throws Exception {
-    orderProcessor = new CoffeMachineOrderProcessor();
+    orderProcessor = new CoffeeMachineOrderProcessor();
   }
 
   @Test
@@ -31,5 +31,12 @@ public class OrderProcessorTest {
   @Test
   public void should_send_chocolate_order_when_a_chocolate_has_been_ordered() throws Exception {
     assertThat(orderProcessor.order(new Chocolate())).isEqualTo("H");
+  }
+
+  @Test
+  public void should_send_coffee_with_one_sugar_when_ordering_a_coffee_with_a_sugar() throws Exception {
+    Drink coffeeWithSugar = new Coffee();
+    coffeeWithSugar.addSugar(1);
+    assertThat(orderProcessor.order(coffeeWithSugar)).isEqualTo("C:1");
   }
 }
