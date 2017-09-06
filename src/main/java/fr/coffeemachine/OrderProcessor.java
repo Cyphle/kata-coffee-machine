@@ -1,5 +1,5 @@
 package fr.coffeemachine;
 
 public interface OrderProcessor {
-  String sendInstructions();
+  String order(Coffee coffee);
 }

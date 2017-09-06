@@ -1,13 +1,26 @@
 package fr.coffeemachine;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class OrderProcessorTest {
+
+  private OrderProcessor orderProcessor;
+
+  @Before
+  public void setUp() throws Exception {
+    orderProcessor = new CoffeMachineOrderProcessor();
+  }
+
   @Test
   public void should_send_empty_string_when_nothing_has_been_ordered() throws Exception {
-    OrderProcessor orderProcessor = new CoffeMachineOrderProcessor();
-    assertThat(orderProcessor.sendInstructions()).isEqualTo("");
+    assertThat(orderProcessor.order(null)).isEqualTo("");
+  }
+
+  @Test
+  public void should_send_coffee_order_when_a_coffee_has_been_ordered() throws Exception {
+    assertThat(orderProcessor.order(new Coffee())).isEqualTo("C");
   }
 }
