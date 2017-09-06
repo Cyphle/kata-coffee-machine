@@ -15,36 +15,36 @@ public class OrderProcessorTest {
 
   @Test
   public void should_send_empty_string_when_nothing_has_been_ordered() throws Exception {
-    assertThat(orderProcessor.order(null)).isEqualTo("");
+    assertThat(orderProcessor.orderDrink(null)).isEqualTo("");
   }
 
   @Test
   public void should_send_coffee_order_when_a_coffee_has_been_ordered() throws Exception {
-    assertThat(orderProcessor.order(new Coffee())).isEqualTo("C");
+    assertThat(orderProcessor.orderDrink(new Coffee())).isEqualTo("C::");
   }
 
   @Test
   public void should_send_tea_order_when_a_tea_has_been_ordered() throws Exception {
-    assertThat(orderProcessor.order(new Tea())).isEqualTo("T");
+    assertThat(orderProcessor.orderDrink(new Tea())).isEqualTo("T::");
   }
 
   @Test
   public void should_send_chocolate_order_when_a_chocolate_has_been_ordered() throws Exception {
-    assertThat(orderProcessor.order(new Chocolate())).isEqualTo("H");
+    assertThat(orderProcessor.orderDrink(new Chocolate())).isEqualTo("H::");
   }
 
   @Test
   public void should_send_coffee_with_one_sugar_when_ordering_a_coffee_with_a_sugar() throws Exception {
     Drink coffeeWithSugar = new Coffee();
     coffeeWithSugar.addSugar(1);
-    assertThat(orderProcessor.order(coffeeWithSugar)).isEqualTo("C:1");
+    assertThat(orderProcessor.orderDrink(coffeeWithSugar)).isEqualTo("C:1:0");
   }
 
   @Test
   public void should_send_drink_with_two_sugars_when_ordering_a_drink() throws Exception {
     Drink teaWithSugars = new Tea();
     teaWithSugars.addSugar(2);
-    assertThat(orderProcessor.order(teaWithSugars)).isEqualTo("T:2");
+    assertThat(orderProcessor.orderDrink(teaWithSugars)).isEqualTo("T:2:0");
   }
 
   @Test
