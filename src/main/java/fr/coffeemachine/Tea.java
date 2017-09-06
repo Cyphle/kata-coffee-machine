@@ -1,8 +1,8 @@
 package fr.coffeemachine;
 
-public class Coffee extends Drink {
+public class Tea extends Drink {
   @Override
   String getDrinkType() {
-    return "C";
+    return "T";
   }
 }
