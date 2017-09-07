@@ -1,6 +1,6 @@
-package fr.coffeemachine;
+package fr.coffeemachine.order;
 
-import fr.coffeemachine.drinks.Drink;
+import fr.coffeemachine.order.drinks.Drink;
 
 public class CoffeeMachineMessageMaker implements MessageMaker {
   @Override

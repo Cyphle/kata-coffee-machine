@@ -1,9 +1,9 @@
-package fr.coffeemachine;
+package fr.coffeemachine.order;
 
-import fr.coffeemachine.drinks.Chocolate;
-import fr.coffeemachine.drinks.Coffee;
-import fr.coffeemachine.drinks.Drink;
-import fr.coffeemachine.drinks.Tea;
+import fr.coffeemachine.order.drinks.Chocolate;
+import fr.coffeemachine.order.drinks.Coffee;
+import fr.coffeemachine.order.drinks.Drink;
+import fr.coffeemachine.order.drinks.Tea;
 import org.junit.Before;
 import org.junit.Test;
 

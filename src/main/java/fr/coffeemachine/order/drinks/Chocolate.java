@@ -1,4 +1,4 @@
-package fr.coffeemachine.drinks;
+package fr.coffeemachine.order.drinks;
 
 public class Chocolate extends Drink {
   @Override
