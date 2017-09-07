@@ -13,7 +13,7 @@ public class OrderMessageMakerTest {
 
   @Before
   public void setUp() throws Exception {
-    messageMaker = new OrderMessageMaker();
+    messageMaker = new CoffeeMachineMessageMaker();
   }
 
   @Test

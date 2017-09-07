@@ -5,10 +5,10 @@ import fr.coffeemachine.drinks.Drink;
 import java.util.StringJoiner;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
-  private OrderMaker orderMaker;
-  private MessageMaker orderMessageMaker;
+  private final OrderMaker orderMaker;
+  private final MessageMaker orderMessageMaker;
 
-  public CoffeeMachineOrderProcessor(OrderMaker orderMaker, MessageMaker orderMessageMaker) {
+  CoffeeMachineOrderProcessor(OrderMaker orderMaker, MessageMaker orderMessageMaker) {
     this.orderMaker = orderMaker;
     this.orderMessageMaker = orderMessageMaker;
   }

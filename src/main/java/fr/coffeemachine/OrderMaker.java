@@ -2,6 +2,6 @@ package fr.coffeemachine;
 
 import fr.coffeemachine.drinks.Drink;
 
-public interface OrderMaker {
+interface OrderMaker {
   String createOrder(Drink drink);
 }

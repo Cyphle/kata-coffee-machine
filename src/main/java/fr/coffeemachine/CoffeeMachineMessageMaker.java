@@ -2,7 +2,7 @@ package fr.coffeemachine;
 
 import fr.coffeemachine.drinks.Drink;
 
-public class OrderMessageMaker implements MessageMaker {
+public class CoffeeMachineMessageMaker implements MessageMaker {
   @Override
   public OrderMessage makeMessageForOrderOf(Drink drink) {
     return buildMessage(drink.getDrinkName(), drink.getNumberOfSugars());

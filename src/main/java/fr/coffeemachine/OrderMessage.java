@@ -1,7 +1,7 @@
 package fr.coffeemachine;
 
 public class OrderMessage {
-  private String message;
+  private final String message;
 
   public OrderMessage(String message) {
     this.message = message;
