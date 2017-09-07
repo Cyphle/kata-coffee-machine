@@ -4,6 +4,8 @@ import fr.coffeemachine.drinks.Drink;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.ROUND_FLOOR;
+
 public class CoffeeMachineMessageMaker implements MessageMaker {
   @Override
   public OrderMessage makeMessageForOrderOf(Drink drink) {
@@ -12,7 +14,7 @@ public class CoffeeMachineMessageMaker implements MessageMaker {
 
   @Override
   public OrderMessage makeNotEnoughMoneyMessage(Drink drink, BigDecimal money) {
-    return null;
+    return new OrderMessage("Order for 1 " + drink.getDrinkName() + " at " + drink.getPrice().setScale(2, ROUND_FLOOR) + " euros is missing " + (drink.getPrice().subtract(money).setScale(2, ROUND_FLOOR)) + " euros");
   }
 
   private OrderMessage buildMessage(String drinkName, int numberOfSugars) {
