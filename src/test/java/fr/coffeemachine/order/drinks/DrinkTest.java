@@ -1,7 +1,6 @@
-package fr.coffeemachine;
+package fr.coffeemachine.order.drinks;
 
-import fr.coffeemachine.drinks.Chocolate;
-import fr.coffeemachine.drinks.Drink;
+import fr.coffeemachine.order.OrderStatus;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

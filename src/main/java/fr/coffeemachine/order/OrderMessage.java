@@ -1,4 +1,4 @@
-package fr.coffeemachine;
+package fr.coffeemachine.order;
 
 public class OrderMessage {
   private final String message;
