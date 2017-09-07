@@ -2,7 +2,9 @@ package fr.coffeemachine;
 
 import fr.coffeemachine.drinkmaker.DrinkMaker;
 import fr.coffeemachine.order.OrderProcessor;
-import fr.coffeemachine.order.drinks.Drink;
+import fr.coffeemachine.drinks.Drink;
+
+import java.math.BigDecimal;
 
 public class CoffeeMachine implements DrinkMachine {
   private DrinkMaker drinkMaker;
@@ -16,5 +18,10 @@ public class CoffeeMachine implements DrinkMachine {
   @Override
   public void orderDrinkOf(Drink drink) {
     drinkMaker.makeDrinkFromOrder(orderProcessor.orderDrink(drink));
+  }
+
+  @Override
+  public void orderChargedDrinkOf(Drink drink, BigDecimal money) {
+    drinkMaker.forwardMissingMoneyMessageToClient(orderProcessor.orderChargedDrink(drink, money));
   }
 }

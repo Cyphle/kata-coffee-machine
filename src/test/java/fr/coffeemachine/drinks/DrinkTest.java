@@ -1,4 +1,4 @@
-package fr.coffeemachine.order.drinks;
+package fr.coffeemachine.drinks;
 
 import fr.coffeemachine.order.OrderStatus;
 import org.junit.Test;

@@ -1,14 +1,15 @@
 package fr.coffeemachine.order;
 
-import fr.coffeemachine.order.drinks.Drink;
+import fr.coffeemachine.drinks.Drink;
 
+import java.math.BigDecimal;
 import java.util.StringJoiner;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
   private final OrderMaker orderMaker;
   private final MessageMaker orderMessageMaker;
 
-  CoffeeMachineOrderProcessor(OrderMaker orderMaker, MessageMaker orderMessageMaker) {
+  public CoffeeMachineOrderProcessor(OrderMaker orderMaker, MessageMaker orderMessageMaker) {
     this.orderMaker = orderMaker;
     this.orderMessageMaker = orderMessageMaker;
   }
@@ -30,5 +31,14 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
     orderWithMessage.add(orderMessage.getMessageForDrinkMaker());
 
     return orderWithMessage.toString();
+  }
+
+  @Override
+  public String orderChargedDrink(Drink drink, BigDecimal money) {
+    if (!drink.isEnoughToPay(money)) {
+      OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
+      return orderMessage.getMessageForDrinkMaker();
+    }
+    return null;
   }
 }

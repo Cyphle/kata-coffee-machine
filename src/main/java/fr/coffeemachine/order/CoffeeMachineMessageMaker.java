@@ -1,11 +1,18 @@
 package fr.coffeemachine.order;
 
-import fr.coffeemachine.order.drinks.Drink;
+import fr.coffeemachine.drinks.Drink;
+
+import java.math.BigDecimal;
 
 public class CoffeeMachineMessageMaker implements MessageMaker {
   @Override
   public OrderMessage makeMessageForOrderOf(Drink drink) {
     return buildMessage(drink.getDrinkName(), drink.getNumberOfSugars());
+  }
+
+  @Override
+  public OrderMessage makeNotEnoughMoneyMessage(Drink drink, BigDecimal money) {
+    return null;
   }
 
   private OrderMessage buildMessage(String drinkName, int numberOfSugars) {

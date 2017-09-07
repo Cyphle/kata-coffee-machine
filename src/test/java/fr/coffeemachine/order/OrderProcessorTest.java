@@ -1,14 +1,16 @@
 package fr.coffeemachine.order;
 
-import fr.coffeemachine.order.drinks.Chocolate;
-import fr.coffeemachine.order.drinks.Coffee;
-import fr.coffeemachine.order.drinks.Drink;
-import fr.coffeemachine.order.drinks.Tea;
+import fr.coffeemachine.drinks.Chocolate;
+import fr.coffeemachine.drinks.Coffee;
+import fr.coffeemachine.drinks.Drink;
+import fr.coffeemachine.drinks.Tea;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -97,5 +99,12 @@ public class OrderProcessorTest {
     assertThat(orderProcessor.orderWithMessage(chocolate)).isEqualTo("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
     verify(orderMessageMaker).makeMessageForOrderOf(chocolate);
     verify(orderMaker).createOrder(chocolate);
+  }
+
+  @Test
+  public void should_send_not_enough_money_message_when_creating_an_order_for_a_charged_drink_with_not_enough_money() throws Exception {
+    given(orderMessageMaker.makeNotEnoughMoneyMessage(new Coffee(), new BigDecimal(0.2))).willReturn(new OrderMessage("Order for 1 coffee at 0.4 euros is missing 0.20 euros"));
+
+    assertThat(orderProcessor.orderChargedDrink(new Coffee(), new BigDecimal(0.2))).isEqualTo("M:Order for 1 coffee at 0.4 euros is missing 0.20 euros");
   }
 }
