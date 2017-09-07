@@ -1,9 +1,10 @@
 package fr.coffeemachine;
 
+import fr.coffeemachine.drinks.Drink;
+
 import java.util.StringJoiner;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
-
   @Override
   public String orderDrink(Drink drink) {
     if (drink == null)
@@ -19,5 +20,13 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
       order.add(":");
 
     return order.toString();
+  }
+
+  @Override
+  public String orderWithMessage(Drink drink) {
+    StringJoiner orderWithMessage = new StringJoiner(" ");
+    orderWithMessage.add(orderDrink(drink));
+    orderWithMessage.add("M:Drink maker makes 1 tea with 1 sugar and a stick");
+    return orderWithMessage.toString();
   }
 }

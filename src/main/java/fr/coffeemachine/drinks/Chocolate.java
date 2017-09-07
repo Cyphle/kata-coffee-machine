@@ -1,8 +1,8 @@
-package fr.coffeemachine;
+package fr.coffeemachine.drinks;
 
 public class Chocolate extends Drink {
   @Override
-  String getDrinkType() {
+  public String getDrinkType() {
     return "H";
   }
 }

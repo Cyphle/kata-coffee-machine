@@ -1,12 +1,14 @@
-package fr.coffeemachine;
+package fr.coffeemachine.drinks;
+
+import fr.coffeemachine.OrderStatus;
 
 import static fr.coffeemachine.OrderStatus.TOO_MUCH_SUGAR;
 
-abstract class Drink {
+public abstract class Drink {
   private static final int MAX_SUGARS = 2;
   private int numberOfSugars;
 
-  abstract String getDrinkType();
+  public abstract String getDrinkType();
 
   public int getNumberOfSugars() {
     return numberOfSugars;

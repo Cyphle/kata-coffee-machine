@@ -1,5 +1,9 @@
 package fr.coffeemachine;
 
+import fr.coffeemachine.drinks.Chocolate;
+import fr.coffeemachine.drinks.Coffee;
+import fr.coffeemachine.drinks.Drink;
+import fr.coffeemachine.drinks.Tea;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,5 +62,12 @@ public class OrderProcessorTest {
     Drink coffeeWithSugar = new Coffee();
     coffeeWithSugar.addSugar(1);
     assertThat(orderProcessor.orderDrink(coffeeWithSugar)).isEqualTo("C:1:0");
+  }
+
+  @Test
+  public void should_send_order_of_coffee_with_sugar_and_message_when_ordering_a_coffee_with_one_sugar() throws Exception {
+    Drink coffeeWithSugar = new Coffee();
+    coffeeWithSugar.addSugar(1);
+    assertThat(orderProcessor.orderWithMessage(coffeeWithSugar)).isEqualTo("C:1:0 M:Drink maker makes 1 tea with 1 sugar and a stick");
   }
 }
