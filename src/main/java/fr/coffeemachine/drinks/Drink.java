@@ -10,6 +10,8 @@ public abstract class Drink {
 
   public abstract String getDrinkType();
 
+  public abstract String getDrinkName();
+
   public int getNumberOfSugars() {
     return numberOfSugars;
   }

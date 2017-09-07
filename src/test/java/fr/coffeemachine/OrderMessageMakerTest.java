@@ -19,6 +19,13 @@ public class OrderMessageMakerTest {
   @Test
   public void should_make_message_for_a_coffee_without_sugar() throws Exception {
     Drink coffee = new Coffee();
-    assertThat(messageMaker.makeMessageForOrderOf(coffee)).isEqualTo(new OrderMessage("Drink maker makes 1 chocolate with no sugar - and therefore no stick"));
+    assertThat(messageMaker.makeMessageForOrderOf(coffee)).isEqualTo(new OrderMessage("Drink maker makes 1 coffee with no sugar - and therefore no stick"));
+  }
+
+  @Test
+  public void should_make_message_for_a_coffee_with_one_sugar_and_a_stick() throws Exception {
+    Drink coffeeWithOneSugar = new Coffee();
+    coffeeWithOneSugar.addSugar(1);
+    assertThat(messageMaker.makeMessageForOrderOf(coffeeWithOneSugar)).isEqualTo(new OrderMessage("Drink maker makes 1 coffee with 1 sugar and a stick"));
   }
 }

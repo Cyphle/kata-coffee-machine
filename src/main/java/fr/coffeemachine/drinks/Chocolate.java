@@ -5,4 +5,9 @@ public class Chocolate extends Drink {
   public String getDrinkType() {
     return "H";
   }
+
+  @Override
+  public String getDrinkName() {
+    return "chocolate";
+  }
 }
