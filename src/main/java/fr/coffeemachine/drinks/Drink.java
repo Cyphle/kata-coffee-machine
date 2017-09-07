@@ -23,4 +23,19 @@ public abstract class Drink {
     this.numberOfSugars = numberOfSugars;
     return OrderStatus.SUGAR_ADDED;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Drink drink = (Drink) o;
+
+    return numberOfSugars == drink.numberOfSugars;
+  }
+
+  @Override
+  public int hashCode() {
+    return numberOfSugars;
+  }
 }
