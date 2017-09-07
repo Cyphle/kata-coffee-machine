@@ -6,7 +6,7 @@ import java.util.StringJoiner;
 
 public class CoffeeMachineOrderMaker implements OrderMaker {
   @Override
-  public String orderDrink(Drink drink) {
+  public String createOrder(Drink drink) {
     StringJoiner order = new StringJoiner(":");
     order.add(drink.getDrinkType());
 

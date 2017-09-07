@@ -19,31 +19,31 @@ public class OrderMakerTest {
 
   @Test
   public void should_send_coffee_order_when_a_coffee_has_been_ordered() throws Exception {
-    assertThat(orderMaker.orderDrink(new Coffee())).isEqualTo("C::");
+    assertThat(orderMaker.createOrder(new Coffee())).isEqualTo("C::");
   }
 
   @Test
   public void should_send_tea_order_when_a_tea_has_been_ordered() throws Exception {
-    assertThat(orderMaker.orderDrink(new Tea())).isEqualTo("T::");
+    assertThat(orderMaker.createOrder(new Tea())).isEqualTo("T::");
   }
 
   @Test
   public void should_send_chocolate_order_when_a_chocolate_has_been_ordered() throws Exception {
-    assertThat(orderMaker.orderDrink(new Chocolate())).isEqualTo("H::");
+    assertThat(orderMaker.createOrder(new Chocolate())).isEqualTo("H::");
   }
 
   @Test
   public void should_send_coffee_with_one_sugar_when_ordering_a_coffee_with_a_sugar() throws Exception {
     Drink coffeeWithSugar = new Coffee();
     coffeeWithSugar.addSugar(1);
-    assertThat(orderMaker.orderDrink(coffeeWithSugar)).isEqualTo("C:1:0");
+    assertThat(orderMaker.createOrder(coffeeWithSugar)).isEqualTo("C:1:0");
   }
 
   @Test
   public void should_send_drink_with_two_sugars_when_ordering_a_drink() throws Exception {
     Drink teaWithSugars = new Tea();
     teaWithSugars.addSugar(2);
-    assertThat(orderMaker.orderDrink(teaWithSugars)).isEqualTo("T:2:0");
+    assertThat(orderMaker.createOrder(teaWithSugars)).isEqualTo("T:2:0");
   }
 
   @Test
@@ -56,6 +56,6 @@ public class OrderMakerTest {
   public void should_send_coffee_with_one_sugar_and_a_stick_when_ordering_a_coffee_with_one_sugar() throws Exception {
     Drink coffeeWithSugar = new Coffee();
     coffeeWithSugar.addSugar(1);
-    assertThat(orderMaker.orderDrink(coffeeWithSugar)).isEqualTo("C:1:0");
+    assertThat(orderMaker.createOrder(coffeeWithSugar)).isEqualTo("C:1:0");
   }
 }

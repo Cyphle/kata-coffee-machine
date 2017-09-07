@@ -34,46 +34,46 @@ public class OrderProcessorTest {
 
   @Test
   public void should_send_coffee_order_when_a_coffee_has_been_ordered() throws Exception {
-    given(orderMaker.orderDrink(new Coffee())).willReturn("C::");
+    given(orderMaker.createOrder(new Coffee())).willReturn("C::");
 
     assertThat(orderProcessor.orderDrink(new Coffee())).isEqualTo("C::");
-    verify(orderMaker).orderDrink(new Coffee());
+    verify(orderMaker).createOrder(new Coffee());
   }
 
   @Test
   public void should_send_tea_order_when_a_tea_has_been_ordered() throws Exception {
-    given(orderMaker.orderDrink(new Tea())).willReturn("T::");
+    given(orderMaker.createOrder(new Tea())).willReturn("T::");
 
     assertThat(orderProcessor.orderDrink(new Tea())).isEqualTo("T::");
-    verify(orderMaker).orderDrink(new Tea());
+    verify(orderMaker).createOrder(new Tea());
   }
 
   @Test
   public void should_send_chocolate_order_when_a_chocolate_has_been_ordered() throws Exception {
-    given(orderMaker.orderDrink(new Chocolate())).willReturn("H::");
+    given(orderMaker.createOrder(new Chocolate())).willReturn("H::");
 
     assertThat(orderProcessor.orderDrink(new Chocolate())).isEqualTo("H::");
-    verify(orderMaker).orderDrink(new Chocolate());
+    verify(orderMaker).createOrder(new Chocolate());
   }
 
   @Test
   public void should_send_coffee_with_one_sugar_when_ordering_a_coffee_with_a_sugar() throws Exception {
     Drink coffeeWithSugar = new Coffee();
     coffeeWithSugar.addSugar(1);
-    given(orderMaker.orderDrink(coffeeWithSugar)).willReturn("C:1:0");
+    given(orderMaker.createOrder(coffeeWithSugar)).willReturn("C:1:0");
 
     assertThat(orderProcessor.orderDrink(coffeeWithSugar)).isEqualTo("C:1:0");
-    verify(orderMaker).orderDrink(coffeeWithSugar);
+    verify(orderMaker).createOrder(coffeeWithSugar);
   }
 
   @Test
   public void should_send_drink_with_two_sugars_when_ordering_a_drink() throws Exception {
     Drink teaWithSugars = new Tea();
     teaWithSugars.addSugar(2);
-    given(orderMaker.orderDrink(teaWithSugars)).willReturn("T:2:0");
+    given(orderMaker.createOrder(teaWithSugars)).willReturn("T:2:0");
 
     assertThat(orderProcessor.orderDrink(teaWithSugars)).isEqualTo("T:2:0");
-    verify(orderMaker).orderDrink(teaWithSugars);
+    verify(orderMaker).createOrder(teaWithSugars);
   }
 
   @Test
@@ -81,21 +81,21 @@ public class OrderProcessorTest {
     Drink coffeeWithSugar = new Coffee();
     coffeeWithSugar.addSugar(1);
     given(orderMessageMaker.makeMessageForOrderOf(coffeeWithSugar)).willReturn(new OrderMessage("Drink maker makes 1 tea with 1 sugar and a stick"));
-    given(orderMaker.orderDrink(coffeeWithSugar)).willReturn("C:1:0");
+    given(orderMaker.createOrder(coffeeWithSugar)).willReturn("C:1:0");
 
     assertThat(orderProcessor.orderWithMessage(coffeeWithSugar)).isEqualTo("C:1:0 M:Drink maker makes 1 tea with 1 sugar and a stick");
     verify(orderMessageMaker).makeMessageForOrderOf(coffeeWithSugar);
-    verify(orderMaker).orderDrink(coffeeWithSugar);
+    verify(orderMaker).createOrder(coffeeWithSugar);
   }
 
   @Test
   public void should_send_order_of_chocolate_without_sugar_nor_stick_when_ordering_a_chocolate_without_sugar() throws Exception {
     Drink chocolate = new Chocolate();
     given(orderMessageMaker.makeMessageForOrderOf(chocolate)).willReturn(new OrderMessage("Drink maker makes 1 chocolate with no sugar - and therefore no stick"));
-    given(orderMaker.orderDrink(chocolate)).willReturn("H::");
+    given(orderMaker.createOrder(chocolate)).willReturn("H::");
 
     assertThat(orderProcessor.orderWithMessage(chocolate)).isEqualTo("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
     verify(orderMessageMaker).makeMessageForOrderOf(chocolate);
-    verify(orderMaker).orderDrink(chocolate);
+    verify(orderMaker).createOrder(chocolate);
   }
 }

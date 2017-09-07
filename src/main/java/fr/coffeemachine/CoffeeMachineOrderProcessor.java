@@ -18,13 +18,13 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
     if (drink == null)
       return "";
 
-    return orderMaker.orderDrink(drink);
+    return orderMaker.createOrder(drink);
   }
 
   @Override
   public String orderWithMessage(Drink drink) {
     StringJoiner orderWithMessage = new StringJoiner(" ");
-    orderWithMessage.add(orderMaker.orderDrink(drink));
+    orderWithMessage.add(orderMaker.createOrder(drink));
 
     OrderMessage orderMessage = orderMessageMaker.makeMessageForOrderOf(drink);
     orderWithMessage.add(orderMessage.getMessageForDrinkMaker());
