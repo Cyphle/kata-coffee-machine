@@ -5,6 +5,12 @@ import fr.coffeemachine.drinks.Drink;
 import java.util.StringJoiner;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
+  private MessageMaker orderMessageMaker;
+
+  public CoffeeMachineOrderProcessor(MessageMaker orderMessageMaker) {
+    this.orderMessageMaker = orderMessageMaker;
+  }
+
   @Override
   public String orderDrink(Drink drink) {
     if (drink == null)
@@ -27,10 +33,8 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
     StringJoiner orderWithMessage = new StringJoiner(" ");
     orderWithMessage.add(orderDrink(drink));
 
-    if (drink.getDrinkType().equals("C"))
-      orderWithMessage.add("M:Drink maker makes 1 tea with 1 sugar and a stick");
-    else
-      orderWithMessage.add("M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+    OrderMessage orderMessage = orderMessageMaker.makeMessageForOrderOf(drink);
+    orderWithMessage.add(orderMessage.getMessageForDrinkMaker());
 
     return orderWithMessage.toString();
   }

@@ -6,15 +6,23 @@ import fr.coffeemachine.drinks.Drink;
 import fr.coffeemachine.drinks.Tea;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
+@RunWith(MockitoJUnitRunner.class)
 public class OrderProcessorTest {
   private OrderProcessor orderProcessor;
+  @Mock
+  private MessageMaker orderMessageMaker;
 
   @Before
   public void setUp() throws Exception {
-    orderProcessor = new CoffeeMachineOrderProcessor();
+    orderProcessor = new CoffeeMachineOrderProcessor(orderMessageMaker);
   }
 
   @Test
@@ -68,12 +76,18 @@ public class OrderProcessorTest {
   public void should_send_order_of_coffee_with_sugar_and_message_when_ordering_a_coffee_with_one_sugar() throws Exception {
     Drink coffeeWithSugar = new Coffee();
     coffeeWithSugar.addSugar(1);
+    given(orderMessageMaker.makeMessageForOrderOf(coffeeWithSugar)).willReturn(new OrderMessage("Drink maker makes 1 tea with 1 sugar and a stick"));
+
     assertThat(orderProcessor.orderWithMessage(coffeeWithSugar)).isEqualTo("C:1:0 M:Drink maker makes 1 tea with 1 sugar and a stick");
+    verify(orderMessageMaker).makeMessageForOrderOf(coffeeWithSugar);
   }
 
   @Test
   public void should_send_order_of_chocolate_without_sugar_nor_stick_when_ordering_a_chocolate_without_sugar() throws Exception {
     Drink chocolate = new Chocolate();
+    given(orderMessageMaker.makeMessageForOrderOf(chocolate)).willReturn(new OrderMessage("Drink maker makes 1 chocolate with no sugar - and therefore no stick"));
+
     assertThat(orderProcessor.orderWithMessage(chocolate)).isEqualTo("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+    verify(orderMessageMaker).makeMessageForOrderOf(chocolate);
   }
 }
