@@ -26,7 +26,12 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   public String orderWithMessage(Drink drink) {
     StringJoiner orderWithMessage = new StringJoiner(" ");
     orderWithMessage.add(orderDrink(drink));
-    orderWithMessage.add("M:Drink maker makes 1 tea with 1 sugar and a stick");
+
+    if (drink.getDrinkType().equals("C"))
+      orderWithMessage.add("M:Drink maker makes 1 tea with 1 sugar and a stick");
+    else
+      orderWithMessage.add("M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+
     return orderWithMessage.toString();
   }
 }

@@ -70,4 +70,10 @@ public class OrderProcessorTest {
     coffeeWithSugar.addSugar(1);
     assertThat(orderProcessor.orderWithMessage(coffeeWithSugar)).isEqualTo("C:1:0 M:Drink maker makes 1 tea with 1 sugar and a stick");
   }
+
+  @Test
+  public void should_send_order_of_chocolate_without_sugar_nor_stick_when_ordering_a_chocolate_without_sugar() throws Exception {
+    Drink chocolate = new Chocolate();
+    assertThat(orderProcessor.orderWithMessage(chocolate)).isEqualTo("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+  }
 }
