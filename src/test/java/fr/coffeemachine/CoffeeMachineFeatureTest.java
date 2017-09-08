@@ -71,4 +71,14 @@ public class CoffeeMachineFeatureTest {
 
     verify(drinkMaker).takeOrderOf("Ch:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
   }
+
+  @Test
+  public void should_send_charge_orange_juice_and_not_add_extra_hot_when_there_is_enough_money_and_is_asked_extra_hot() throws Exception {
+    Drink orangeJuice = new OrangeJuice();
+    orangeJuice.setExtraHot();
+
+    machine.orderChargedDrinkOf(orangeJuice, money.of(0.6).build());
+
+    verify(drinkMaker).takeOrderOf("O:: M:Drink maker makes 1 orange juice");
+  }
 }
