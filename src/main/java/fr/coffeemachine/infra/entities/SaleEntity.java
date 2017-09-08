@@ -1,6 +1,6 @@
 package fr.coffeemachine.infra.entities;
 
-import fr.coffeemachine.domain.Drink;
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.domain.statistics.Sale;
 
 import java.time.ZoneId;

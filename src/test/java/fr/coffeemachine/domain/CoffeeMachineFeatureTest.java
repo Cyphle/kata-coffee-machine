@@ -1,7 +1,9 @@
 package fr.coffeemachine.domain;
 
+import fr.coffeemachine.domain.notification.EmailSender;
 import fr.coffeemachine.domain.order.*;
 import fr.coffeemachine.domain.statistics.CoffeeMachineStatisticsBuilder;
+import fr.coffeemachine.domain.statistics.SaleRepository;
 import fr.coffeemachine.domain.statistics.StatisticsBuilder;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.adaptors.SaleRepositoryAdaptor;
@@ -19,8 +21,8 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
 
-import static fr.coffeemachine.domain.Money.money;
-import static fr.coffeemachine.domain.Drink.AvailableDrink.*;
+import static fr.coffeemachine.domain.utils.Money.money;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;

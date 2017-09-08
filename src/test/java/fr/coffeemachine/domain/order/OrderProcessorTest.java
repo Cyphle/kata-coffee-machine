@@ -1,13 +1,12 @@
 package fr.coffeemachine.domain.order;
 
-import fr.coffeemachine.domain.Drink;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static fr.coffeemachine.domain.Drink.AvailableDrink.CHOCOLATE;
-import static fr.coffeemachine.domain.Drink.AvailableDrink.COFFEE;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.CHOCOLATE;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 

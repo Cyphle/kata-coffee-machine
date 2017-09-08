@@ -1,7 +1,6 @@
 package fr.coffeemachine.domain.order;
 
-import fr.coffeemachine.domain.Money;
-import fr.coffeemachine.domain.Drink;
+import fr.coffeemachine.domain.utils.Money;
 
 public interface OrderProcessor {
   String createOrderOf(Drink drink);

@@ -1,14 +1,17 @@
 package fr.coffeemachine.domain;
 
+import fr.coffeemachine.domain.notification.EmailSender;
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.domain.order.OrderProcessor;
+import fr.coffeemachine.domain.statistics.SaleRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static fr.coffeemachine.domain.Money.money;
-import static fr.coffeemachine.domain.Drink.AvailableDrink.COFFEE;
+import static fr.coffeemachine.domain.utils.Money.money;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 

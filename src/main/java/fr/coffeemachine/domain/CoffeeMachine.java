@@ -1,6 +1,11 @@
 package fr.coffeemachine.domain;
 
+import fr.coffeemachine.domain.notification.EmailNotifier;
+import fr.coffeemachine.domain.notification.EmailSender;
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.domain.order.OrderProcessor;
+import fr.coffeemachine.domain.statistics.SaleRepository;
+import fr.coffeemachine.domain.utils.Money;
 
 public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, EmailNotifier {
   private final OrderProcessor orderProcessor;

@@ -1,4 +1,4 @@
-package fr.coffeemachine.domain.statistics;
+package fr.coffeemachine.domain.utils;
 
 public class Quantity {
   private int quantity;

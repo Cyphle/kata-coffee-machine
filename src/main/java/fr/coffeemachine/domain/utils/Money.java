@@ -1,4 +1,4 @@
-package fr.coffeemachine.domain;
+package fr.coffeemachine.domain.utils;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

@@ -1,13 +1,13 @@
 package fr.coffeemachine.infra.view;
 
-import fr.coffeemachine.domain.Money;
-import fr.coffeemachine.domain.Drink;
-import fr.coffeemachine.domain.statistics.Quantity;
+import fr.coffeemachine.domain.utils.Money;
+import fr.coffeemachine.domain.order.Drink;
+import fr.coffeemachine.domain.utils.Quantity;
 
 import java.util.Map;
 import java.util.StringJoiner;
 
-import static fr.coffeemachine.domain.Money.money;
+import static fr.coffeemachine.domain.utils.Money.money;
 import static java.math.BigDecimal.ROUND_FLOOR;
 
 public class ConsoleStatisticsPrinter implements StatisticsPrinter {

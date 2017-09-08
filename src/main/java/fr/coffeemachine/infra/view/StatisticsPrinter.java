@@ -1,7 +1,7 @@
 package fr.coffeemachine.infra.view;
 
-import fr.coffeemachine.domain.Drink;
-import fr.coffeemachine.domain.statistics.Quantity;
+import fr.coffeemachine.domain.order.Drink;
+import fr.coffeemachine.domain.utils.Quantity;
 
 import java.util.Map;
 

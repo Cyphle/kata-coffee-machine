@@ -1,7 +1,7 @@
 package fr.coffeemachine.domain.statistics;
 
-import fr.coffeemachine.domain.SaleRepository;
-import fr.coffeemachine.domain.Drink;
+import fr.coffeemachine.domain.utils.Quantity;
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 

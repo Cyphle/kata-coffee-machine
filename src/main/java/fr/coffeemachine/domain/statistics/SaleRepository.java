@@ -1,5 +1,6 @@
-package fr.coffeemachine.domain;
+package fr.coffeemachine.domain.statistics;
 
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.domain.statistics.Sale;
 
 import java.util.Date;

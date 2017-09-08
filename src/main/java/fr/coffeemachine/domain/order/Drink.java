@@ -1,12 +1,13 @@
-package fr.coffeemachine.domain;
+package fr.coffeemachine.domain.order;
 
-import fr.coffeemachine.domain.statistics.Quantity;
+import fr.coffeemachine.domain.utils.Money;
+import fr.coffeemachine.domain.utils.Quantity;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import static fr.coffeemachine.domain.Money.money;
-import static fr.coffeemachine.domain.Drink.AvailableDrink.ORANGE_JUICE;
+import static fr.coffeemachine.domain.utils.Money.money;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.ORANGE_JUICE;
 
 public class Drink implements Comparable<Drink> {
   private int sugarNumber = 0;

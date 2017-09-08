@@ -1,6 +1,6 @@
 package fr.coffeemachine.domain.statistics;
 
-import fr.coffeemachine.domain.Drink;
+import fr.coffeemachine.domain.order.Drink;
 
 import java.time.LocalDate;
 

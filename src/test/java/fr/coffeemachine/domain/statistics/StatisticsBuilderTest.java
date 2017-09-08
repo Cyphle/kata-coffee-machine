@@ -1,7 +1,7 @@
 package fr.coffeemachine.domain.statistics;
 
-import fr.coffeemachine.domain.Drink;
-import fr.coffeemachine.domain.SaleRepository;
+import fr.coffeemachine.domain.utils.Quantity;
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 import org.junit.Before;
@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static fr.coffeemachine.domain.Drink.AvailableDrink.COFFEE;
-import static fr.coffeemachine.domain.Drink.AvailableDrink.ORANGE_JUICE;
-import static fr.coffeemachine.domain.Drink.AvailableDrink.TEA;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.ORANGE_JUICE;
+import static fr.coffeemachine.domain.order.Drink.AvailableDrink.TEA;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
