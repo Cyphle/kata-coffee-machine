@@ -1,5 +1,6 @@
 package fr.coffeemachine.domain;
 
+import fr.coffeemachine.domain.drinks.DrinkEnum;
 import fr.coffeemachine.drinkmaker.DrinkMaker;
 import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.order.OrderProcessor;
@@ -18,6 +19,11 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   }
 
   @Override
+  public String orderDrinkOf(DrinkEnum drink, Money money) {
+    return orderProcessor.makeOrderWithNotEnoughMoney(drink, money);
+  }
+
+  @Override
   public void orderDrinkOf(Drink drink, Money money) {
     if (isEmpty(drink)) {
       processBeverageShortage(drink);
@@ -30,6 +36,11 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
 
   @Override
   public boolean isEmpty(Drink drink) {
+    return drink.isEmpty();
+  }
+
+  @Override
+  public boolean isEmpty(DrinkEnum drink) {
     return drink.isEmpty();
   }
 

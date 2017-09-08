@@ -11,6 +11,10 @@ public class Quantity {
     return quantity;
   }
 
+  public boolean isZero() {
+    return quantity == 0;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

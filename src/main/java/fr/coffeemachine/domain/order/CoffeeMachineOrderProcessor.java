@@ -2,8 +2,11 @@ package fr.coffeemachine.domain.order;
 
 import fr.coffeemachine.domain.Money;
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.drinks.DrinkEnum;
 
 import java.util.StringJoiner;
+
+import static java.math.BigDecimal.ROUND_FLOOR;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
   private final OrderMaker orderMaker;
@@ -37,6 +40,17 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   public String makeOrderWithNotEnoughMoney(Drink drink, Money money) {
     OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
     return orderMessage.getMessageForDrinkMaker();
+  }
+
+  @Override
+  public String makeOrderWithNotEnoughMoney(DrinkEnum drink, Money money) {
+    return "M:Order for 1 "
+            + drink.getDrinkName()
+            + " at "
+            + drink.getPrice()
+            + " euros is missing "
+            + drink.calculateMissingMoney(money)
+            + " euros";
   }
 
   @Override

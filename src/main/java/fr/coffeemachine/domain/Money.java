@@ -14,7 +14,7 @@ public class Money {
   }
 
   public BigDecimal getAmount() {
-    return amount;
+    return amount.setScale(2, ROUND_FLOOR);
   }
 
   public boolean isLowerOrEqual(Money money) {

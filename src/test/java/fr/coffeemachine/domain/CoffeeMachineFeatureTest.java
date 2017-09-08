@@ -10,6 +10,7 @@ import fr.coffeemachine.infra.view.StatisticsPrinter;
 import fr.coffeemachine.domain.order.*;
 import fr.coffeemachine.infra.adaptors.SaleRepositoryAdaptor;
 import fr.coffeemachine.infra.repositories.InMemorySaleRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import static fr.coffeemachine.domain.Money.money;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -55,9 +57,9 @@ public class CoffeeMachineFeatureTest {
 
   @Test
   public void should_not_send_a_charged_order_if_not_enough_money_has_been_given_but_send_a_message_to_drink_maker() throws Exception {
-    machine.orderDrinkOf(new Coffee(), money.of(0.2).build());
+    String order = machine.orderDrinkOf(COFFEE, money.of(0.2).build());
 
-    verify(drinkMaker).takeOrderOf("M:Order for 1 coffee at 0.40 euros is missing 0.20 euros");
+    assertThat(order).isEqualTo("M:Order for 1 coffee at 0.40 euros is missing 0.20 euros");
   }
 
   @Test
@@ -65,7 +67,8 @@ public class CoffeeMachineFeatureTest {
     Drink coffee = new Coffee();
     coffee.addSugar(1);
 
-    machine.orderDrinkOf(coffee, money.of(0.4).build());
+//    machine.orderDrinkOf(coffee, money.of(0.4).build());
+    machine.orderDrinkOf(COFFEE, money.of(0.4).build());
 
     verify(drinkMaker).takeOrderOf("C:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
   }
