@@ -6,8 +6,6 @@ import fr.coffeemachine.domain.drinks.DrinkEnum;
 
 import java.util.StringJoiner;
 
-import static java.math.BigDecimal.ROUND_FLOOR;
-
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
   private final OrderMaker orderMaker;
   private final MessageMaker orderMessageMaker;
@@ -40,11 +38,13 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   public String makeOrderWithMessage(DrinkEnum drink) {
     String order = drink.getTypeAndTemperature()
             + ":"
-            + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) + ":0" : "::");
+            + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) + ":0" : ":");
 
     order += " M:Drink maker makes 1 "
-            + drink.getDrinkName()
-            + " with "
+            + drink.getDrinkName();
+
+    if (drink.canHaveSugar())
+      order += " with "
             + String.valueOf(drink.getNumberOfSugars())
             + " sugar"
             + (drink.getNumberOfSugars() > 1 ? "s" : "")

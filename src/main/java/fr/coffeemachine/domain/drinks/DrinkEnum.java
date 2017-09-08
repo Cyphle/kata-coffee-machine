@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static fr.coffeemachine.domain.Money.money;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.ORANGE_JUICE;
 
 public class DrinkEnum {
   private int sugarNumber = 0;
@@ -51,6 +52,10 @@ public class DrinkEnum {
 
   public int getNumberOfSugars() {
     return sugarNumber;
+  }
+
+  public boolean canHaveSugar() {
+    return drink != ORANGE_JUICE;
   }
 
   public enum InternalDrinkEnum {

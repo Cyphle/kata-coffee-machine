@@ -23,6 +23,7 @@ import java.util.Date;
 
 import static fr.coffeemachine.domain.Money.money;
 import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.COFFEE;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.ORANGE_JUICE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -65,6 +66,7 @@ public class CoffeeMachineFeatureTest {
   public void should_send_a_charged_order_of_coffee_with_one_sugar_if_money_is_enough() throws Exception {
     DrinkEnum drink = new DrinkEnum(COFFEE);
     drink.withSugar(1);
+
     String order = machine.orderDrinkOf(drink, money.of(0.4).build());
 
     assertThat(order).isEqualTo("C:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
@@ -72,11 +74,9 @@ public class CoffeeMachineFeatureTest {
 
   @Test
   public void should_send_a_charged_orange_juice_when_there_is_enough_money() throws Exception {
-    Drink orangeJuice = new OrangeJuice();
+    String order = machine.orderDrinkOf(new DrinkEnum(ORANGE_JUICE), money.of(0.6).build());
 
-    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
-
-    verify(drinkMaker).takeOrderOf("O:: M:Drink maker makes 1 orange juice");
+    assertThat(order).isEqualTo("O:: M:Drink maker makes 1 orange juice");
   }
 
   @Test
