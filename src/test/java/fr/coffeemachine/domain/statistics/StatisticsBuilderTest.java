@@ -1,11 +1,10 @@
-package fr.coffeemachine.domain;
+package fr.coffeemachine.domain.statistics;
 
+import fr.coffeemachine.domain.SaleRepository;
 import fr.coffeemachine.domain.drinks.Coffee;
 import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.drinks.OrangeJuice;
 import fr.coffeemachine.domain.drinks.Tea;
-import fr.coffeemachine.domain.statistics.Quantity;
-import fr.coffeemachine.domain.statistics.Sale;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 import org.junit.Before;
@@ -18,7 +17,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -45,7 +43,7 @@ public class StatisticsBuilderTest {
     Sale orangeJuiceSale = new Sale(dateService.getTodayLocaleDate(), new OrangeJuice());
     given(saleRepository.getSalesOf(dateService.getTodayDate())).willReturn(Arrays.asList(coffeeSale, teaSale, otherTeaSale, orangeJuiceSale));
 
-    statisticsBuilder.printStatistics(console);
+    statisticsBuilder.printStatisticsOfToday(console);
 
     Map<Drink, Quantity> sales = new HashMap<>();
     sales.put(new Coffee(), new Quantity(1));

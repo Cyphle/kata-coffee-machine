@@ -1,28 +1,51 @@
 package fr.coffeemachine.infra.view;
 
+import fr.coffeemachine.domain.Money;
 import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.statistics.Quantity;
 
 import java.util.Map;
 import java.util.StringJoiner;
 
-public class ConsoleStatisticsPrinter implements StatisticsPrinter {
+import static fr.coffeemachine.domain.Money.money;
+import static java.math.BigDecimal.ROUND_FLOOR;
 
-  public static final String DELIMITER = " - ";
+public class ConsoleStatisticsPrinter implements StatisticsPrinter {
+  private static final String DELIMITER = " - ";
+  private StringBuilder buffer;
+
+  public ConsoleStatisticsPrinter() {
+    buffer = new StringBuilder();
+  }
 
   @Override
   public void collectForPrint(Map<Drink, Quantity> sales) {
-    // Sells : 1 coffee - 2 teas - 1 orange juice
-//    Total : 1.8 euros
-//    StringJoiner drinkSales = new StringJoiner(DELIMITER);
-//    sales.entrySet()
-//            .stream()
-//            .forEach(sale -> drinkSales.add(sale.getValue() + " " + sale.getKey() + (sale.getValue() > 1 ? "s" : "")));
-    throw new UnsupportedOperationException();
+    setListOfSales(sales);
+    buffer.append("\n");
+    setTotalSales(sales);
   }
 
   @Override
   public String flush() {
-    throw new UnsupportedOperationException();
+    String printable = buffer.toString();
+    buffer = new StringBuilder();
+    return printable;
+  }
+
+  private void setListOfSales(Map<Drink, Quantity> sales) {
+    buffer.append("Sells : ");
+    StringJoiner drinkSales = new StringJoiner(DELIMITER);
+    sales.forEach((key, value) -> drinkSales.add(value.getQuantity() + " " + key.getDrinkName() + (value.getQuantity() > 1 ? "s" : "")));
+    buffer.append(drinkSales.toString());
+  }
+
+  private void setTotalSales(Map<Drink, Quantity> sales) {
+    buffer.append("Total : ");
+    Money total = sales.entrySet()
+            .stream()
+            .map(sale -> sale.getKey().getPriceInMoney().multipleBy(sale.getValue().getQuantity()))
+            .reduce(money.of(0).build(), Money::add);
+    buffer.append(total.getAmount().setScale(2, ROUND_FLOOR));
+    buffer.append(" euros");
   }
 }

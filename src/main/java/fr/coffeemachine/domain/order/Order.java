@@ -6,8 +6,8 @@ import java.util.StringJoiner;
 
 class Order {
   private static final String DELIMITER = ":";
-  private Drink drink;
-  private StringJoiner order;
+  private final Drink drink;
+  private final StringJoiner order;
 
   Order(Drink drink) {
     this.drink = drink;

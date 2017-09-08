@@ -5,7 +5,10 @@ import fr.coffeemachine.domain.drinks.Coffee;
 import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.drinks.OrangeJuice;
 import fr.coffeemachine.domain.drinks.Tea;
+import fr.coffeemachine.domain.statistics.CoffeeMachineStatisticsBuilder;
+import fr.coffeemachine.domain.statistics.StatisticsBuilder;
 import fr.coffeemachine.infra.DateService;
+import fr.coffeemachine.infra.view.ConsoleStatisticsPrinter;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 import fr.coffeemachine.domain.order.*;
 import fr.coffeemachine.infra.adaptors.SaleRepositoryAdaptor;
@@ -28,7 +31,6 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CoffeeMachineFeatureTest {
-  @Mock
   private StatisticsPrinter console;
   @Mock
   private DrinkMaker drinkMaker;
@@ -46,6 +48,8 @@ public class CoffeeMachineFeatureTest {
     machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository);
 
     statisticsBuilder = new CoffeeMachineStatisticsBuilder(saleRepository, dateService);
+
+    console = new ConsoleStatisticsPrinter();
 
     given(dateService.getTodayDate()).willReturn(Date.from(LocalDate.of(2017, Month.SEPTEMBER, 8).atStartOfDay(ZoneId.systemDefault()).toInstant()));
   }
@@ -117,8 +121,8 @@ public class CoffeeMachineFeatureTest {
     machine.orderChargedDrinkOf(teaWithSugar, money.of(0.4).build());
     machine.orderChargedDrinkOf(orangeJuice, money.of(0.6).build());
 
-    statisticsBuilder.printStatistics(console);
+    statisticsBuilder.printStatisticsOfToday(console);
     
-    assertThat(console.flush()).isEqualTo("Sells : 1 coffee - 2 teas - 1 orange juice\nTotal : 1.8 euros");
+    assertThat(console.flush()).isEqualTo("Sells : 1 orange juice - 2 teas - 1 coffee\nTotal : 1.80 euros");
   }
 }

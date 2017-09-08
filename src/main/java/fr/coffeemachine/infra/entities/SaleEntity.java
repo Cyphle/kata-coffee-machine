@@ -22,10 +22,6 @@ public class SaleEntity {
     this.sellingDate = sellingDate;
   }
 
-  public String getDrinkName() {
-    return drinkName;
-  }
-
   public void setDrinkName(String drinkName) {
     this.drinkName = drinkName;
   }
@@ -47,8 +43,7 @@ public class SaleEntity {
 
     SaleEntity that = (SaleEntity) o;
 
-    if (sellingDate != null ? !sellingDate.equals(that.sellingDate) : that.sellingDate != null) return false;
-    return drinkName != null ? drinkName.equals(that.drinkName) : that.drinkName == null;
+    return (sellingDate != null ? sellingDate.equals(that.sellingDate) : that.sellingDate == null) && (drinkName != null ? drinkName.equals(that.drinkName) : that.drinkName == null);
   }
 
   @Override

@@ -49,7 +49,7 @@ public abstract class Drink {
     return SugarStatus.SUGAR_ADDED;
   }
 
-  protected boolean canBeExtraHot() {
+  boolean canBeExtraHot() {
     return true;
   }
 

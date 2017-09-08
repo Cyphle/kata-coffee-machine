@@ -5,8 +5,8 @@ import fr.coffeemachine.domain.drinks.Drink;
 import java.time.LocalDate;
 
 public class Sale {
-  private LocalDate saleDate;
-  private Drink drink;
+  private final LocalDate saleDate;
+  private final Drink drink;
 
   public Sale(LocalDate saleDate, Drink drink) {
     this.saleDate = saleDate;

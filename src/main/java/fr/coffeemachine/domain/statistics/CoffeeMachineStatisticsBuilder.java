@@ -1,8 +1,7 @@
-package fr.coffeemachine.domain;
+package fr.coffeemachine.domain.statistics;
 
+import fr.coffeemachine.domain.SaleRepository;
 import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.domain.statistics.Quantity;
-import fr.coffeemachine.domain.statistics.Sale;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 
@@ -12,16 +11,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CoffeeMachineStatisticsBuilder implements StatisticsBuilder {
-  private SaleRepository saleRepository;
-  private DateService dateService;
+  private final SaleRepository saleRepository;
+  private final DateService dateService;
 
-  CoffeeMachineStatisticsBuilder(SaleRepository saleRepository, DateService dateService) {
+  public CoffeeMachineStatisticsBuilder(SaleRepository saleRepository, DateService dateService) {
     this.saleRepository = saleRepository;
     this.dateService = dateService;
   }
 
   @Override
-  public void printStatistics(StatisticsPrinter printer) {
+  public void printStatisticsOfToday(StatisticsPrinter printer) {
     Map<Drink, Quantity> salesByDrink = new HashMap<>();
     List<Sale> sales = saleRepository.getSalesOf(dateService.getTodayDate());
     sales.stream()

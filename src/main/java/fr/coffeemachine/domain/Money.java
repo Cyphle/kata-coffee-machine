@@ -21,8 +21,16 @@ public class Money {
     return amount.compareTo(money.amount) <= 0;
   }
 
+  public Money add(Money amountToAdd) {
+    return money.of(amount.add(amountToAdd.amount)).build();
+  }
+
   public Money subtract(Money moneyToSubtract) {
     return money.of(amount.subtract(moneyToSubtract.amount)).build();
+  }
+
+  public Money multipleBy(int factor) {
+    return money.of(amount.multiply(new BigDecimal(factor))).build();
   }
 
   @Override
@@ -43,7 +51,7 @@ public class Money {
   public static class MoneyBuilder {
     private BigDecimal amount;
 
-    public MoneyBuilder of(BigDecimal amount) {
+    MoneyBuilder of(BigDecimal amount) {
       this.amount = amount;
       return this;
     }

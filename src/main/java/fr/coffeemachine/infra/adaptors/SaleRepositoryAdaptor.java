@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SaleRepositoryAdaptor implements SaleRepository {
-  private DBSaleRepository dbSaleRepository;
-  private DateService dateService;
+  private final DBSaleRepository dbSaleRepository;
+  private final DateService dateService;
 
   public SaleRepositoryAdaptor(DBSaleRepository dbSaleRepository, DateService dateService) {
     this.dbSaleRepository = dbSaleRepository;

@@ -5,9 +5,9 @@ import fr.coffeemachine.domain.order.OrderProcessor;
 import fr.coffeemachine.domain.drinks.Drink;
 
 public class CoffeeMachine implements DrinkMachine {
-  private DrinkMaker drinkMaker;
-  private OrderProcessor orderProcessor;
-  private SaleRepository saleRepository;
+  private final DrinkMaker drinkMaker;
+  private final OrderProcessor orderProcessor;
+  private final SaleRepository saleRepository;
 
   CoffeeMachine(DrinkMaker drinkMaker, OrderProcessor orderProcessor, SaleRepository saleRepository) {
     this.drinkMaker = drinkMaker;

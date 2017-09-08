@@ -1,10 +1,14 @@
 package fr.coffeemachine.domain.statistics;
 
 public class Quantity {
-  private int quantity;
+  private final int quantity;
 
   public Quantity(int quantity) {
     this.quantity = quantity;
+  }
+
+  public int getQuantity() {
+    return quantity;
   }
 
   @Override
