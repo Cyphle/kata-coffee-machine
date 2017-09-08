@@ -10,20 +10,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.CHOCOLATE;
 import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.COFFEE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderProcessorTest {
   private OrderProcessor orderProcessor;
-  @Mock
-  private OrderMaker orderMaker;
-  @Mock
-  private MessageMaker orderMessageMaker;
 
   @Before
   public void setUp() throws Exception {
-    orderProcessor = new CoffeeMachineOrderProcessor(orderMaker, orderMessageMaker);
+    orderProcessor = new CoffeeMachineOrderProcessor();
   }
 
   @Test

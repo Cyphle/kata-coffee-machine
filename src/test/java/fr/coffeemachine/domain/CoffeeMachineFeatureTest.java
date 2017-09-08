@@ -38,9 +38,7 @@ public class CoffeeMachineFeatureTest {
 
   @Before
   public void setUp() throws Exception {
-    OrderMaker orderMaker = new CoffeeMachineOrderMaker();
-    MessageMaker orderMessageMaker = new CoffeeMachineMessageMaker();
-    OrderProcessor orderProcessor = new CoffeeMachineOrderProcessor(orderMaker, orderMessageMaker);
+    OrderProcessor orderProcessor = new CoffeeMachineOrderProcessor();
     SaleRepository saleRepository = new SaleRepositoryAdaptor(new InMemorySaleRepository(), dateService);
     machine = new CoffeeMachine(orderProcessor, saleRepository, emailSender);
 

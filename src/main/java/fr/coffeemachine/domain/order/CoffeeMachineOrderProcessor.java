@@ -4,14 +4,6 @@ import fr.coffeemachine.domain.Money;
 import fr.coffeemachine.domain.drinks.DrinkEnum;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
-  private final OrderMaker orderMaker;
-  private final MessageMaker orderMessageMaker;
-
-  public CoffeeMachineOrderProcessor(OrderMaker orderMaker, MessageMaker orderMessageMaker) {
-    this.orderMaker = orderMaker;
-    this.orderMessageMaker = orderMessageMaker;
-  }
-
   @Override
   public String createOrderOf(DrinkEnum drink) {
     if (drink == null)
