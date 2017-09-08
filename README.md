@@ -46,6 +46,24 @@ The coffee machine is not free anymore! One tea is 0,4 euro, a coffee is 0,6 eur
     - As customer
     - I want to be able to choose the temperature of my hot beverage
     - In order to have hotter beverage (coffee, tea, chocolate)
+    
+### Step 4
+The machine is becoming popular in the office. The management is eager to have daily reports of what is sold and when.
+
+- I want to be able to print a report anytime that contains: how many of each drink was sold and the total amount of money earned so far.
+
+### Step 5
+- When I order a drink and it can be delivered because of a shortage, I want to see a message to the coffee machine console that indicates me the shortage and that a notification has been sent
+
+Use interface:
+
+public interface EmailNotifier {
+	void notifyMissingDrink(String drink)
+}
+
+public interface BeverageQuantityChecker {
+	boolean isEmpty(String drink)
+}
 
 #### Drink maker protocol
 Drink maker receives string such as:
