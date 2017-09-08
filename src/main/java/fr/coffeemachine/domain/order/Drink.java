@@ -31,10 +31,6 @@ public class Drink implements Comparable<Drink> {
     return drink.getDrinkName();
   }
 
-  BigDecimal getPrice() {
-    return drink.getPrice();
-  }
-
   public Money getPriceInMoney() {
     return drink.price;
   }
