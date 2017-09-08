@@ -16,7 +16,7 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
 
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
+import static fr.coffeemachine.domain.order.AvailableDrink.COFFEE;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 

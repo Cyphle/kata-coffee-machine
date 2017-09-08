@@ -14,9 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.ORANGE_JUICE;
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.TEA;
+import static fr.coffeemachine.domain.order.AvailableDrink.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 

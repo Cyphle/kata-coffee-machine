@@ -1,5 +1,6 @@
 package fr.coffeemachine.infra.entities;
 
+import fr.coffeemachine.domain.order.AvailableDrink;
 import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.domain.statistics.Sale;
 
@@ -25,7 +26,7 @@ public class SaleEntity {
   }
 
   public Sale fromEntityToDomain() {
-    return new Sale(new Drink(Drink.AvailableDrink.valueOf(drinkName)));
+    return new Sale(new Drink(AvailableDrink.valueOf(drinkName)));
   }
 
   public static SaleEntity fromDomainToEntity(Drink drink) {

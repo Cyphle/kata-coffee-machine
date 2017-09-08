@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static fr.coffeemachine.domain.utils.Money.money;
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
+import static fr.coffeemachine.domain.order.AvailableDrink.COFFEE;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 

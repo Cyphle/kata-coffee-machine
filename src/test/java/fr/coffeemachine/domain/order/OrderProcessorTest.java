@@ -5,8 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.CHOCOLATE;
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
+import static fr.coffeemachine.domain.order.AvailableDrink.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)

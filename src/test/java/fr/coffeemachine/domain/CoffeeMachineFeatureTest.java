@@ -22,7 +22,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import static fr.coffeemachine.domain.utils.Money.money;
-import static fr.coffeemachine.domain.order.Drink.AvailableDrink.*;
+import static fr.coffeemachine.domain.order.AvailableDrink.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
