@@ -1,47 +1,47 @@
 package fr.coffeemachine.domain.order;
 
-import fr.coffeemachine.domain.Money;
-import fr.coffeemachine.domain.drinks.Drink;
-
-import java.util.StringJoiner;
+import fr.coffeemachine.domain.utils.Money;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
-  private final OrderMaker orderMaker;
-  private final MessageMaker orderMessageMaker;
-
-  public CoffeeMachineOrderProcessor(OrderMaker orderMaker, MessageMaker orderMessageMaker) {
-    this.orderMaker = orderMaker;
-    this.orderMessageMaker = orderMessageMaker;
-  }
-
   @Override
-  public String makeDrinkOrder(Drink drink) {
+  public String createOrderOf(Drink drink) {
     if (drink == null)
       return "";
 
-    return orderMaker.createOrder(drink);
+    return createOrder(drink) + createOrderMessage(drink);
   }
 
   @Override
-  public String makeOrderWithMessage(Drink drink) {
-    StringJoiner orderWithMessage = new StringJoiner(" ");
-    orderWithMessage.add(orderMaker.createOrder(drink));
-
-    OrderMessage orderMessage = orderMessageMaker.makeMessageForOrderOf(drink);
-    orderWithMessage.add(orderMessage.getMessageForDrinkMaker());
-
-    return orderWithMessage.toString();
+  public String createOrderForNotEnoughMoney(Drink drink, Money money) {
+    return "M:Order for 1 "
+            + drink.getDrinkName()
+            + " at "
+            + drink.getPriceInMoney().getAmount()
+            + " euros is missing "
+            + drink.calculateMissingMoney(money).getAmount()
+            + " euros";
   }
 
   @Override
-  public String makeOrderWithNotEnoughMoney(Drink drink, Money money) {
-    OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
-    return orderMessage.getMessageForDrinkMaker();
+  public String createOrderForBeverageShortage(Drink drink) {
+    return "M:Sorry but " + drink.getDrinkName() + " is not available at the moment";
   }
 
-  @Override
-  public String makeOrderWithBeverageShortage(Drink drink) {
-    OrderMessage orderMessage = orderMessageMaker.makeBeverageShortageMessage(drink);
-    return orderMessage.getMessageForDrinkMaker();
+  private String createOrder(Drink drink) {
+    return drink.getTypeAndTemperature()
+            + ":"
+            + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) + ":0" : ":");
+  }
+
+  private String createOrderMessage(Drink drink) {
+    String message = " M:Drink maker makes 1 "
+            + drink.getDrinkName();
+    if (drink.canHaveSugarAndBeExtraHot())
+      message += " with "
+              + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) : "no")
+              + " sugar"
+              + (drink.getNumberOfSugars() > 1 ? "s" : "")
+              + (drink.getNumberOfSugars() > 0 ? " and a stick" : " - and therefore no stick");
+    return message;
   }
 }

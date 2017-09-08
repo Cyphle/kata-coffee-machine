@@ -1,7 +1,8 @@
 package fr.coffeemachine.domain;
 
-import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.order.Drink;
+import fr.coffeemachine.domain.utils.Money;
 
 interface DrinkMachine {
-  void orderDrinkOf(Drink drink, Money money);
+  String orderDrinkOf(Drink drink, Money money);
 }

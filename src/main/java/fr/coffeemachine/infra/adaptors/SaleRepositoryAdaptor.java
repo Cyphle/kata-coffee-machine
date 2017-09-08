@@ -1,7 +1,7 @@
 package fr.coffeemachine.infra.adaptors;
 
-import fr.coffeemachine.domain.SaleRepository;
-import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.statistics.SaleRepository;
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.domain.statistics.Sale;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.entities.SaleEntity;

@@ -1,7 +1,7 @@
 package fr.coffeemachine.infra.adaptors;
 
-import fr.coffeemachine.domain.SaleRepository;
-import fr.coffeemachine.domain.drinks.Coffee;
+import fr.coffeemachine.domain.statistics.SaleRepository;
+import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.entities.SaleEntity;
 import fr.coffeemachine.infra.repositories.DBSaleRepository;
@@ -11,11 +11,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.Date;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
+import java.util.Date;
 
+import static fr.coffeemachine.domain.order.AvailableDrink.COFFEE;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -38,10 +39,10 @@ public class SaleRepositoryAdaptorTest {
     LocalDate sellingLocaleDate = LocalDate.of(2017, Month.SEPTEMBER, 8);
     Date sellingDate = Date.from(sellingLocaleDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-    saleRepository.addSell(new Coffee());
+    saleRepository.addSell(new Drink(COFFEE));
 
     SaleEntity coffeeSale = new SaleEntity();
-    coffeeSale.setDrinkName("coffee");
+    coffeeSale.setDrinkName("COFFEE");
     coffeeSale.setSellingDate(sellingDate);
     verify(dbSellRepository).save(coffeeSale);
   }

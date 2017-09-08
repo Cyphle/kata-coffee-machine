@@ -1,15 +1,11 @@
 package fr.coffeemachine.domain.statistics;
 
-import fr.coffeemachine.domain.drinks.Drink;
-
-import java.time.LocalDate;
+import fr.coffeemachine.domain.order.Drink;
 
 public class Sale {
-  private final LocalDate saleDate;
   private final Drink drink;
 
-  public Sale(LocalDate saleDate, Drink drink) {
-    this.saleDate = saleDate;
+  public Sale(Drink drink) {
     this.drink = drink;
   }
 

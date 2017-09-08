@@ -1,4 +1,4 @@
-package fr.coffeemachine.domain;
+package fr.coffeemachine.domain.utils;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -14,11 +14,7 @@ public class Money {
   }
 
   public BigDecimal getAmount() {
-    return amount;
-  }
-
-  public boolean isLowerOrEqual(Money money) {
-    return amount.compareTo(money.amount) <= 0;
+    return amount.setScale(2, ROUND_FLOOR);
   }
 
   public Money add(Money amountToAdd) {
@@ -31,6 +27,10 @@ public class Money {
 
   public Money multipleBy(int factor) {
     return money.of(amount.multiply(new BigDecimal(factor))).build();
+  }
+
+  public boolean isInferiorOrEqualAs(Money toCompare) {
+    return amount.compareTo(toCompare.amount) <= 0;
   }
 
   @Override
