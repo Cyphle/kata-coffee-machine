@@ -1,10 +1,7 @@
 package fr.coffeemachine.domain;
 
-import fr.coffeemachine.domain.drinkmaker.DrinkMaker;
-import fr.coffeemachine.domain.drinks.Coffee;
-import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.domain.drinks.OrangeJuice;
-import fr.coffeemachine.domain.drinks.Tea;
+import fr.coffeemachine.drinkmaker.DrinkMaker;
+import fr.coffeemachine.domain.drinks.*;
 import fr.coffeemachine.domain.statistics.CoffeeMachineStatisticsBuilder;
 import fr.coffeemachine.domain.statistics.StatisticsBuilder;
 import fr.coffeemachine.infra.DateService;
@@ -36,6 +33,8 @@ public class CoffeeMachineFeatureTest {
   private DrinkMaker drinkMaker;
   @Mock
   private DateService dateService;
+  @Mock
+  private EmailSender emailSender;
   private DrinkMachine machine;
   private StatisticsBuilder statisticsBuilder;
 
@@ -45,7 +44,7 @@ public class CoffeeMachineFeatureTest {
     MessageMaker orderMessageMaker = new CoffeeMachineMessageMaker();
     OrderProcessor orderProcessor = new CoffeeMachineOrderProcessor(orderMaker, orderMessageMaker);
     SaleRepository saleRepository = new SaleRepositoryAdaptor(new InMemorySaleRepository(), dateService);
-    machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository);
+    machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository, emailSender);
 
     statisticsBuilder = new CoffeeMachineStatisticsBuilder(saleRepository, dateService);
 
@@ -56,7 +55,7 @@ public class CoffeeMachineFeatureTest {
 
   @Test
   public void should_not_send_a_charged_order_if_not_enough_money_has_been_given_but_send_a_message_to_drink_maker() throws Exception {
-    machine.orderChargedDrinkOf(new Coffee(), money.of(0.2).build());
+    machine.orderDrinkOf(new Coffee(), money.of(0.2).build());
 
     verify(drinkMaker).takeOrderOf("M:Order for 1 coffee at 0.40 euros is missing 0.20 euros");
   }
@@ -66,7 +65,7 @@ public class CoffeeMachineFeatureTest {
     Drink coffee = new Coffee();
     coffee.addSugar(1);
 
-    machine.orderChargedDrinkOf(coffee, money.of(0.4).build());
+    machine.orderDrinkOf(coffee, money.of(0.4).build());
 
     verify(drinkMaker).takeOrderOf("C:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
   }
@@ -75,14 +74,14 @@ public class CoffeeMachineFeatureTest {
   public void should_send_a_charged_orange_juice_when_there_is_enough_money() throws Exception {
     Drink orangeJuice = new OrangeJuice();
 
-    machine.orderChargedDrinkOf(orangeJuice, money.of(0.6).build());
+    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
 
     verify(drinkMaker).takeOrderOf("O:: M:Drink maker makes 1 orange juice");
   }
 
   @Test
   public void should_not_send_charged_order_for_orange_juice_if_not_enough_money() throws Exception {
-    machine.orderChargedDrinkOf(new OrangeJuice(), money.of(0.3).build());
+    machine.orderDrinkOf(new OrangeJuice(), money.of(0.3).build());
 
     verify(drinkMaker).takeOrderOf("M:Order for 1 orange juice at 0.60 euros is missing 0.30 euros");
   }
@@ -93,7 +92,7 @@ public class CoffeeMachineFeatureTest {
     coffee.addSugar(1);
     coffee.setExtraHot();
 
-    machine.orderChargedDrinkOf(coffee, money.of(0.4).build());
+    machine.orderDrinkOf(coffee, money.of(0.4).build());
 
     verify(drinkMaker).takeOrderOf("Ch:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
   }
@@ -103,7 +102,7 @@ public class CoffeeMachineFeatureTest {
     Drink orangeJuice = new OrangeJuice();
     orangeJuice.setExtraHot();
 
-    machine.orderChargedDrinkOf(orangeJuice, money.of(0.6).build());
+    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
 
     verify(drinkMaker).takeOrderOf("O:: M:Drink maker makes 1 orange juice");
   }
@@ -116,13 +115,25 @@ public class CoffeeMachineFeatureTest {
     teaWithSugar.addSugar(1);
     Drink orangeJuice = new OrangeJuice();
 
-    machine.orderChargedDrinkOf(coffee, money.of(0.4).build());
-    machine.orderChargedDrinkOf(tea, money.of(0.4).build());
-    machine.orderChargedDrinkOf(teaWithSugar, money.of(0.4).build());
-    machine.orderChargedDrinkOf(orangeJuice, money.of(0.6).build());
+    machine.orderDrinkOf(coffee, money.of(0.4).build());
+    machine.orderDrinkOf(tea, money.of(0.4).build());
+    machine.orderDrinkOf(teaWithSugar, money.of(0.4).build());
+    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
 
     statisticsBuilder.printStatisticsOfToday(console);
     
     assertThat(console.flush()).isEqualTo("Sells : 1 orange juice - 2 teas - 1 coffee\nTotal : 1.80 euros");
+  }
+
+  @Test
+  public void should_send_notification_and_inform_customer_when_beverage_is_no_more_available() throws Exception {
+    Drink chocolate = new Chocolate();
+
+    machine.orderDrinkOf(chocolate, money.of(0.4).build());
+    machine.orderDrinkOf(chocolate, money.of(0.4).build());
+
+    verify(drinkMaker).takeOrderOf("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+    verify(drinkMaker).takeOrderOf("M:Sorry but chocolate is not available at the moment");
+    verify(emailSender).sendBeverageShortageNotification(new Chocolate());
   }
 }

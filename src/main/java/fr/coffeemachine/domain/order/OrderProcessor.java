@@ -9,4 +9,6 @@ public interface OrderProcessor {
   String makeOrderWithMessage(Drink drink);
 
   String makeOrderWithNotEnoughMoney(Drink drink, Money money);
+
+  String makeOrderWithBeverageShortage(Drink drink);
 }

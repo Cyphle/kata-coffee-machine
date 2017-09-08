@@ -38,4 +38,10 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
     OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
     return orderMessage.getMessageForDrinkMaker();
   }
+
+  @Override
+  public String makeOrderWithBeverageShortage(Drink drink) {
+    OrderMessage orderMessage = orderMessageMaker.makeBeverageShortageMessage(drink);
+    return orderMessage.getMessageForDrinkMaker();
+  }
 }

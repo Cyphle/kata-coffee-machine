@@ -10,4 +10,11 @@ public class UnknownDrink extends Drink {
   public String getDrinkName() {
     return "unknown";
   }
+  @Override
+  public boolean isEmpty() {
+    return true;
+  }
+
+  @Override
+  public void decreaseNumberAvailableBeverage() {}
 }

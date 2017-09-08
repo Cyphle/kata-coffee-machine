@@ -19,6 +19,11 @@ public class CoffeeMachineMessageMaker implements MessageMaker {
     return new OrderMessage("Order for 1 " + drink.getDrinkName() + " at " + drink.getPrice().setScale(2, ROUND_FLOOR) + " euros is missing " + (drink.getPriceInMoney().subtract(money).getAmount().setScale(2, ROUND_FLOOR)) + " euros");
   }
 
+  @Override
+  public OrderMessage makeBeverageShortageMessage(Drink drink) {
+    return new OrderMessage("Sorry but " + drink.getDrinkName() + " is not available at the moment");
+  }
+
   private String getBeginningOfSentence() {
     return "Drink maker makes 1 ";
   }
