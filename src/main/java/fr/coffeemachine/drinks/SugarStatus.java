@@ -1,5 +1,5 @@
 package fr.coffeemachine.drinks;
 
 public enum SugarStatus {
-  SUGAR_ADDED, TOO_MUCH_SUGAR
+  SUGAR_ADDED, SUGAR_NOT_ALLOWED_FOR_THIS_DRINK, TOO_MUCH_SUGAR
 }

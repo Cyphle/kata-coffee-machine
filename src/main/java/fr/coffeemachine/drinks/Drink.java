@@ -5,6 +5,7 @@ import fr.coffeemachine.Money;
 import java.math.BigDecimal;
 
 import static fr.coffeemachine.Money.money;
+import static fr.coffeemachine.drinks.SugarStatus.SUGAR_NOT_ALLOWED_FOR_THIS_DRINK;
 import static fr.coffeemachine.drinks.SugarStatus.TOO_MUCH_SUGAR;
 
 public abstract class Drink {
@@ -34,6 +35,9 @@ public abstract class Drink {
   }
 
   public SugarStatus addSugar(int numberOfSugars) {
+    if (!canHaveSugar())
+      return SUGAR_NOT_ALLOWED_FOR_THIS_DRINK;
+
     if (numberOfSugars > MAX_SUGARS)
       return TOO_MUCH_SUGAR;
 
