@@ -16,14 +16,6 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String makeDrinkOrder(Drink drink) {
-    if (drink == null)
-      return "";
-
-    return orderMaker.createOrder(drink);
-  }
-
-  @Override
   public String createOrderOf(Drink drink) {
     StringJoiner orderWithMessage = new StringJoiner(" ");
     orderWithMessage.add(orderMaker.createOrder(drink));
@@ -36,6 +28,9 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
 
   @Override
   public String createOrderOf(DrinkEnum drink) {
+    if (drink == null)
+      return "";
+
     String order = drink.getTypeAndTemperature()
             + ":"
             + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) + ":0" : ":");

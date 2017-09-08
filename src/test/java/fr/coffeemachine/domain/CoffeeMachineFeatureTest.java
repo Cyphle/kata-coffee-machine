@@ -1,10 +1,9 @@
 package fr.coffeemachine.domain;
 
-import fr.coffeemachine.domain.drinks.*;
+import fr.coffeemachine.domain.drinks.DrinkEnum;
 import fr.coffeemachine.domain.order.*;
 import fr.coffeemachine.domain.statistics.CoffeeMachineStatisticsBuilder;
 import fr.coffeemachine.domain.statistics.StatisticsBuilder;
-import fr.coffeemachine.drinkmaker.DrinkMaker;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.adaptors.SaleRepositoryAdaptor;
 import fr.coffeemachine.infra.repositories.InMemorySaleRepository;
@@ -31,8 +30,6 @@ import static org.mockito.Mockito.verify;
 public class CoffeeMachineFeatureTest {
   private StatisticsPrinter console;
   @Mock
-  private DrinkMaker drinkMaker;
-  @Mock
   private DateService dateService;
   @Mock
   private EmailSender emailSender;
@@ -45,7 +42,7 @@ public class CoffeeMachineFeatureTest {
     MessageMaker orderMessageMaker = new CoffeeMachineMessageMaker();
     OrderProcessor orderProcessor = new CoffeeMachineOrderProcessor(orderMaker, orderMessageMaker);
     SaleRepository saleRepository = new SaleRepositoryAdaptor(new InMemorySaleRepository(), dateService);
-    machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository, emailSender);
+    machine = new CoffeeMachine(orderProcessor, saleRepository, emailSender);
 
     statisticsBuilder = new CoffeeMachineStatisticsBuilder(saleRepository, dateService);
 

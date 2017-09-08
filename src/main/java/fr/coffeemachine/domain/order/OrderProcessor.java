@@ -5,8 +5,6 @@ import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.drinks.DrinkEnum;
 
 public interface OrderProcessor {
-  String makeDrinkOrder(Drink drink);
-
   @Deprecated
   String createOrderOf(Drink drink);
 
