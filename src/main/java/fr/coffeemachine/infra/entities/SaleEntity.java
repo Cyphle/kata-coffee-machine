@@ -8,6 +8,9 @@ public class SaleEntity {
   private Date sellingDate;
   private String drinkName;
 
+  public SaleEntity() {
+  }
+
   public Date getSellingDate() {
     return sellingDate;
   }

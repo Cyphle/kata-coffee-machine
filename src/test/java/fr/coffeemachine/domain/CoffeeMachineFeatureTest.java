@@ -10,6 +10,7 @@ import fr.coffeemachine.infra.StatisticsPrinter;
 import fr.coffeemachine.domain.order.*;
 import fr.coffeemachine.infra.adaptors.SaleRepositoryAdaptor;
 import fr.coffeemachine.infra.repositories.InMemorySaleRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static fr.coffeemachine.domain.Money.money;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,17 +28,20 @@ public class CoffeeMachineFeatureTest {
   @Mock
   private DrinkMaker drinkMaker;
   @Mock
+  private
   DateService dateService;
   private DrinkMachine machine;
-  private SaleRepository saleRepository;
+  private StatisticsBuilder statisticsBuilder;
 
   @Before
   public void setUp() throws Exception {
     OrderMaker orderMaker = new CoffeeMachineOrderMaker();
     MessageMaker orderMessageMaker = new CoffeeMachineMessageMaker();
     OrderProcessor orderProcessor = new CoffeeMachineOrderProcessor(orderMaker, orderMessageMaker);
-    saleRepository = new SaleRepositoryAdaptor(new InMemorySaleRepository(), dateService);
+    SaleRepository saleRepository = new SaleRepositoryAdaptor(new InMemorySaleRepository(), dateService);
     machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository);
+
+    statisticsBuilder = new CoffeeMachineStatisticsBuilder(saleRepository, dateService);
   }
 
   @Test
@@ -106,9 +111,8 @@ public class CoffeeMachineFeatureTest {
     machine.orderChargedDrinkOf(teaWithSugar, money.of(0.4).build());
     machine.orderChargedDrinkOf(orangeJuice, money.of(0.6).build());
 
-    machine.printStatistics(console);
+    statisticsBuilder.printStatistics(console);
     
-    verify(console).print("Sells : 1 coffee - 2 teas - 1 orange juice");
-    verify(console).print("Total : 1.8 euros");
+    assertThat(console.flush()).isEqualTo("Sells : 1 coffee - 2 teas - 1 orange juice\nTotal : 1.8 euros");
   }
 }

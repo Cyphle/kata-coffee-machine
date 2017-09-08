@@ -7,6 +7,4 @@ public interface DrinkMachine {
   void orderDrinkOf(Drink drink);
 
   void orderChargedDrinkOf(Drink drink, Money money);
-
-  void printStatistics(StatisticsPrinter printer);
 }

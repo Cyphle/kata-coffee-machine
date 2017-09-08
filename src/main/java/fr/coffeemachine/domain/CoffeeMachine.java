@@ -30,9 +30,4 @@ public class CoffeeMachine implements DrinkMachine {
       drinkMaker.takeOrderOf(orderProcessor.makeOrderWithNotEnoughMoney(drink, money));
     }
   }
-
-  @Override
-  public void printStatistics(StatisticsPrinter printer) {
-    throw new UnsupportedOperationException();
-  }
 }

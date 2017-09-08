@@ -2,9 +2,13 @@ package fr.coffeemachine.infra.adaptors;
 
 import fr.coffeemachine.domain.SaleRepository;
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.statistics.Sale;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.entities.SaleEntity;
 import fr.coffeemachine.infra.repositories.DBSaleRepository;
+
+import java.util.Date;
+import java.util.List;
 
 public class SaleRepositoryAdaptor implements SaleRepository {
   private DBSaleRepository dbSaleRepository;
@@ -20,5 +24,10 @@ public class SaleRepositoryAdaptor implements SaleRepository {
     SaleEntity sale = SaleEntity.fromDomainToEntity(drink);
     sale.setSellingDate(dateService.getTodayDate());
     dbSaleRepository.save(sale);
+  }
+
+  @Override
+  public List<Sale> getSalesOf(Date requiredDate) {
+    throw new UnsupportedOperationException();
   }
 }
