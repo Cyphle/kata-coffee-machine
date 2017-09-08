@@ -73,6 +73,15 @@ public class CoffeeMachineFeatureTest {
   }
 
   @Test
+  public void should_send_a_charged_order_of_coffee_with_no_sugar_if_money_is_enough() throws Exception {
+    DrinkEnum drink = new DrinkEnum(COFFEE);
+
+    String order = machine.orderDrinkOf(drink, money.of(0.4).build());
+
+    assertThat(order).isEqualTo("C:: M:Drink maker makes 1 coffee with no sugar - and therefore no stick");
+  }
+
+  @Test
   public void should_send_a_charged_orange_juice_when_there_is_enough_money() throws Exception {
     String order = machine.orderDrinkOf(new DrinkEnum(ORANGE_JUICE), money.of(0.6).build());
 

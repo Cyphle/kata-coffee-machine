@@ -45,10 +45,10 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
 
     if (drink.canHaveSugarAndBeExtraHot())
       order += " with "
-            + String.valueOf(drink.getNumberOfSugars())
+            + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) : "no")
             + " sugar"
             + (drink.getNumberOfSugars() > 1 ? "s" : "")
-            + " and a stick";
+            + (drink.getNumberOfSugars() > 0 ? " and a stick" : " - and therefore no stick");
 
     return order;
   }
