@@ -1,10 +1,7 @@
 package fr.coffeemachine.domain;
 
 import fr.coffeemachine.domain.drinkmaker.DrinkMaker;
-import fr.coffeemachine.domain.drinks.Coffee;
-import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.domain.drinks.OrangeJuice;
-import fr.coffeemachine.domain.drinks.Tea;
+import fr.coffeemachine.domain.drinks.*;
 import fr.coffeemachine.domain.statistics.CoffeeMachineStatisticsBuilder;
 import fr.coffeemachine.domain.statistics.StatisticsBuilder;
 import fr.coffeemachine.infra.DateService;
@@ -126,5 +123,17 @@ public class CoffeeMachineFeatureTest {
     statisticsBuilder.printStatisticsOfToday(console);
     
     assertThat(console.flush()).isEqualTo("Sells : 1 orange juice - 2 teas - 1 coffee\nTotal : 1.80 euros");
+  }
+
+  @Test
+  public void should_send_notification_and_inform_customer_when_beverage_is_no_more_available() throws Exception {
+    Drink chocolate = new Chocolate();
+
+    machine.orderChargedDrinkOf(chocolate, money.of(0.4).build());
+    machine.orderChargedDrinkOf(chocolate, money.of(0.4).build());
+
+    verify(drinkMaker).takeOrderOf("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+    verify(drinkMaker).takeOrderOf("M:Sorry but chocolate is not available at the moment");
+    verify(emailSender).sendBeverageShortageNotification(new Chocolate());
   }
 }

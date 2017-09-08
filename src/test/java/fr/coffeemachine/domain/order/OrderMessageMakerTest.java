@@ -45,11 +45,11 @@ public class OrderMessageMakerTest {
 
   @Test
   public void should_make_message_for_beverage_shortage_when_asked_for_a_coffee() throws Exception {
-    assertThat(messageMaker.makeBeverageShortageMessage(new Coffee())).isEqualTo(new OrderMessage("M:Sorry but coffee is not available at the moment"));
+    assertThat(messageMaker.makeBeverageShortageMessage(new Coffee())).isEqualTo(new OrderMessage("Sorry but coffee is not available at the moment"));
   }
 
   @Test
   public void should_make_message_for_beverage_shortage_when_asked_for_a_tea() throws Exception {
-    assertThat(messageMaker.makeBeverageShortageMessage(new Tea())).isEqualTo(new OrderMessage("M:Sorry but tea is not available at the moment"));
+    assertThat(messageMaker.makeBeverageShortageMessage(new Tea())).isEqualTo(new OrderMessage("Sorry but tea is not available at the moment"));
   }
 }

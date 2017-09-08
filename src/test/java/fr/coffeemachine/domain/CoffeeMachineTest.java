@@ -54,16 +54,4 @@ public class CoffeeMachineTest {
 
     verify(saleRepository, never()).addSell(coffee);
   }
-
-  @Test
-  public void should_send_a_message_that_there_is_a_beverage_shortage_to_drink_maker_so_than_it_can_forward_it_to_customer() throws Exception {
-    given(orderProcessor.makeOrderWithBeverageShortage(new Chocolate())).willReturn("M:Sorry but chocolate is not available at the moment");
-    Drink chocolate = new Chocolate();
-
-    machine.orderChargedDrinkOf(chocolate, money.of(0.4).build());
-    machine.orderChargedDrinkOf(chocolate, money.of(0.4).build());
-
-    verify(drinkMaker).takeOrderOf("M:Sorry but chocolate is not available at the moment");
-    verify(emailSender).sendBeverageShortageNotification(new Chocolate());
-  }
 }

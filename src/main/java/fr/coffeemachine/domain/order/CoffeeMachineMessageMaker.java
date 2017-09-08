@@ -21,7 +21,7 @@ public class CoffeeMachineMessageMaker implements MessageMaker {
 
   @Override
   public OrderMessage makeBeverageShortageMessage(Drink drink) {
-    return new OrderMessage("M:Sorry but " + drink.getDrinkName() + " is not available at the moment");
+    return new OrderMessage("Sorry but " + drink.getDrinkName() + " is not available at the moment");
   }
 
   private String getBeginningOfSentence() {
