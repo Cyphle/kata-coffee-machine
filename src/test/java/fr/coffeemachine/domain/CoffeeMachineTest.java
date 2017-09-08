@@ -1,6 +1,6 @@
 package fr.coffeemachine.domain;
 
-import fr.coffeemachine.domain.drinkmaker.DrinkMaker;
+import fr.coffeemachine.drinkmaker.DrinkMaker;
 import fr.coffeemachine.domain.drinks.Coffee;
 import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.order.OrderProcessor;
