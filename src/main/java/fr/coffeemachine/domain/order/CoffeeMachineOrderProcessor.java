@@ -41,6 +41,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
 
   @Override
   public String makeOrderWithBeverageShortage(Drink drink) {
-    throw new UnsupportedOperationException();
+    OrderMessage orderMessage = orderMessageMaker.makeBeverageShortageMessage(drink);
+    return orderMessage.getMessageForDrinkMaker();
   }
 }

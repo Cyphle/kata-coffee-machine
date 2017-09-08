@@ -1,15 +1,15 @@
 package fr.coffeemachine.domain;
 
 import fr.coffeemachine.domain.drinkmaker.DrinkMaker;
+import fr.coffeemachine.domain.drinks.Chocolate;
 import fr.coffeemachine.domain.drinks.Coffee;
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.drinks.Tea;
 import fr.coffeemachine.domain.order.OrderProcessor;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static fr.coffeemachine.domain.Money.money;
@@ -25,13 +25,15 @@ public class CoffeeMachineTest {
   private DrinkMaker drinkMaker;
   @Mock
   private OrderProcessor orderProcessor;
-  private CoffeeMachine machine;
   @Mock
   private SaleRepository saleRepository;
+  @Mock
+  private EmailSender emailSender;
+  private CoffeeMachine machine;
 
   @Before
   public void setUp() throws Exception {
-    machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository);
+    machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository, emailSender);
   }
 
   @Test
@@ -55,16 +57,13 @@ public class CoffeeMachineTest {
 
   @Test
   public void should_send_a_message_that_there_is_a_beverage_shortage_to_drink_maker_so_than_it_can_forward_it_to_customer() throws Exception {
-    given(orderProcessor.makeOrderWithBeverageShortage(new Coffee())).willReturn("M:Sorry but coffee is not available at the moment");
-    Drink coffee = new Coffee();
+    given(orderProcessor.makeOrderWithBeverageShortage(new Chocolate())).willReturn("M:Sorry but chocolate is not available at the moment");
+    Drink chocolate = new Chocolate();
 
-    machine.orderChargedDrinkOf(coffee, money.of(0.4).build());
+    machine.orderChargedDrinkOf(chocolate, money.of(0.4).build());
+    machine.orderChargedDrinkOf(chocolate, money.of(0.4).build());
 
-    verify(drinkMaker).takeOrderOf("M:Sorry but coffee is not available at the moment");
-  }
-
-  @Test
-  public void should_be_true_if_coffee_is_empty() throws Exception {
-    assertThat(machine.isEmpty(new Coffee())).isTrue();
+    verify(drinkMaker).takeOrderOf("M:Sorry but chocolate is not available at the moment");
+    verify(emailSender).sendBeverageShortageNotification(new Chocolate());
   }
 }

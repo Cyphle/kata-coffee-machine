@@ -3,6 +3,7 @@ package fr.coffeemachine.domain.order;
 import fr.coffeemachine.domain.drinks.Chocolate;
 import fr.coffeemachine.domain.drinks.Coffee;
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.drinks.Tea;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,5 +41,15 @@ public class OrderMessageMakerTest {
   @Test
   public void should_make_message_for_not_enough_money_when_ordering_coffee_with_not_enough_money() throws Exception {
     assertThat(messageMaker.makeNotEnoughMoneyMessage(new Coffee(), money.of(0.2).build())).isEqualTo(new OrderMessage("Order for 1 coffee at 0.40 euros is missing 0.20 euros"));
+  }
+
+  @Test
+  public void should_make_message_for_beverage_shortage_when_asked_for_a_coffee() throws Exception {
+    assertThat(messageMaker.makeBeverageShortageMessage(new Coffee())).isEqualTo(new OrderMessage("M:Sorry but coffee is not available at the moment"));
+  }
+
+  @Test
+  public void should_make_message_for_beverage_shortage_when_asked_for_a_tea() throws Exception {
+    assertThat(messageMaker.makeBeverageShortageMessage(new Tea())).isEqualTo(new OrderMessage("M:Sorry but tea is not available at the moment"));
   }
 }

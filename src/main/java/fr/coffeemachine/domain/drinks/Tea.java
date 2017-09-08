@@ -17,4 +17,9 @@ public class Tea extends Drink {
   public boolean isEmpty() {
     return NUMBER_AVAILABLE_BEVERAGE == 0;
   }
+
+  @Override
+  public void decreaseNumberAvailableBeverage() {
+    --NUMBER_AVAILABLE_BEVERAGE;
+  }
 }

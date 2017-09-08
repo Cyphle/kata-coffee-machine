@@ -64,6 +64,8 @@ public abstract class Drink {
 
   public abstract boolean isEmpty();
 
+  public abstract void decreaseNumberAvailableBeverage();
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

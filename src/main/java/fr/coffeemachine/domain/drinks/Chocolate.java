@@ -1,7 +1,7 @@
 package fr.coffeemachine.domain.drinks;
 
 public class Chocolate extends Drink {
-  private static int NUMBER_AVAILABLE_BEVERAGE = 10;
+  private static int NUMBER_AVAILABLE_BEVERAGE = 1;
 
   @Override
   public String getDrinkType() {
@@ -16,5 +16,10 @@ public class Chocolate extends Drink {
   @Override
   public boolean isEmpty() {
     return NUMBER_AVAILABLE_BEVERAGE == 0;
+  }
+
+  @Override
+  public void decreaseNumberAvailableBeverage() {
+    --NUMBER_AVAILABLE_BEVERAGE;
   }
 }

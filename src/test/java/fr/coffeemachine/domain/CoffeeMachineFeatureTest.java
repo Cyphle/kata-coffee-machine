@@ -36,6 +36,8 @@ public class CoffeeMachineFeatureTest {
   private DrinkMaker drinkMaker;
   @Mock
   private DateService dateService;
+  @Mock
+  private EmailSender emailSender;
   private DrinkMachine machine;
   private StatisticsBuilder statisticsBuilder;
 
@@ -45,7 +47,7 @@ public class CoffeeMachineFeatureTest {
     MessageMaker orderMessageMaker = new CoffeeMachineMessageMaker();
     OrderProcessor orderProcessor = new CoffeeMachineOrderProcessor(orderMaker, orderMessageMaker);
     SaleRepository saleRepository = new SaleRepositoryAdaptor(new InMemorySaleRepository(), dateService);
-    machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository);
+    machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository, emailSender);
 
     statisticsBuilder = new CoffeeMachineStatisticsBuilder(saleRepository, dateService);
 

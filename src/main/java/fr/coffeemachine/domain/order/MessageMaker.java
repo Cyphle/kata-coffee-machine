@@ -7,4 +7,6 @@ public interface MessageMaker {
   OrderMessage makeMessageForOrderOf(Drink drink);
 
   OrderMessage makeNotEnoughMoneyMessage(Drink drink, Money money);
+
+  OrderMessage makeBeverageShortageMessage(Drink drink);
 }

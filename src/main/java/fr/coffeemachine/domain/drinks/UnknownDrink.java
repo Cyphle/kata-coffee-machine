@@ -14,4 +14,7 @@ public class UnknownDrink extends Drink {
   public boolean isEmpty() {
     return true;
   }
+
+  @Override
+  public void decreaseNumberAvailableBeverage() {}
 }
