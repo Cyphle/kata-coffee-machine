@@ -42,20 +42,22 @@ public class DrinkEnum {
     return drink.calculateMissingMoney(paidAmount);
   }
 
-  public boolean hasSugar() {
-    return sugarNumber > 0;
-  }
-
   public void withSugar(int numberOfSugar) {
-    this.sugarNumber = numberOfSugar;
+    if (canHaveSugarAndBeExtraHot())
+      this.sugarNumber = numberOfSugar;
   }
 
   public int getNumberOfSugars() {
     return sugarNumber;
   }
 
-  public boolean canHaveSugar() {
+  public boolean canHaveSugarAndBeExtraHot() {
     return drink != ORANGE_JUICE;
+  }
+
+  public void setExtraHot() {
+    if (canHaveSugarAndBeExtraHot())
+      this.isExtraHot = true;
   }
 
   public enum InternalDrinkEnum {

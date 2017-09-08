@@ -43,7 +43,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
     order += " M:Drink maker makes 1 "
             + drink.getDrinkName();
 
-    if (drink.canHaveSugar())
+    if (drink.canHaveSugarAndBeExtraHot())
       order += " with "
             + String.valueOf(drink.getNumberOfSugars())
             + " sugar"

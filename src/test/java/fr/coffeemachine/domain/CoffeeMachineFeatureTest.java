@@ -80,21 +80,13 @@ public class CoffeeMachineFeatureTest {
   }
 
   @Test
-  public void should_not_send_charged_order_for_orange_juice_if_not_enough_money() throws Exception {
-    machine.orderDrinkOf(new OrangeJuice(), money.of(0.3).build());
-
-    verify(drinkMaker).takeOrderOf("M:Order for 1 orange juice at 0.60 euros is missing 0.30 euros");
-  }
-
-  @Test
   public void should_send_charge_coffee_extra_hot_when_there_is_enough_money_and_is_asked_extra_hot() throws Exception {
-    Drink coffee = new Coffee();
-    coffee.addSugar(1);
+    DrinkEnum coffee = new DrinkEnum(COFFEE);
+    coffee.withSugar(2);
     coffee.setExtraHot();
+    String order = machine.orderDrinkOf(coffee, money.of(0.4).build());
 
-    machine.orderDrinkOf(coffee, money.of(0.4).build());
-
-    verify(drinkMaker).takeOrderOf("Ch:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
+    assertThat(order).isEqualTo("Ch:2:0 M:Drink maker makes 1 coffee with 2 sugars and a stick");
   }
 
   @Test
