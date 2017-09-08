@@ -1,8 +1,8 @@
 package fr.coffeemachine;
 
 import fr.coffeemachine.drinkmaker.DrinkMaker;
+import fr.coffeemachine.drinks.Coffee;
 import fr.coffeemachine.order.OrderProcessor;
-import fr.coffeemachine.order.drinks.Coffee;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package fr.coffeemachine.order;
 
-import fr.coffeemachine.order.drinks.Drink;
+import fr.coffeemachine.drinks.Drink;
 
 import java.util.StringJoiner;
 

@@ -1,9 +1,6 @@
 package fr.coffeemachine.order;
 
-import fr.coffeemachine.order.drinks.Chocolate;
-import fr.coffeemachine.order.drinks.Coffee;
-import fr.coffeemachine.order.drinks.Drink;
-import fr.coffeemachine.order.drinks.Tea;
+import fr.coffeemachine.drinks.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,12 +41,6 @@ public class OrderMakerTest {
     Drink teaWithSugars = new Tea();
     teaWithSugars.addSugar(2);
     assertThat(orderMaker.createOrder(teaWithSugars)).isEqualTo("T:2:0");
-  }
-
-  @Test
-  public void should_return_an_order_status_with_too_much_sugar_when_trying_to_add_three_sugars() throws Exception {
-    Drink chocolateWithSugar = new Chocolate();
-    assertThat(chocolateWithSugar.addSugar(3)).isEqualTo(OrderStatus.TOO_MUCH_SUGAR);
   }
 
   @Test

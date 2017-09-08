@@ -2,7 +2,7 @@ package fr.coffeemachine;
 
 import fr.coffeemachine.drinkmaker.DrinkMaker;
 import fr.coffeemachine.order.OrderProcessor;
-import fr.coffeemachine.order.drinks.Drink;
+import fr.coffeemachine.drinks.Drink;
 
 public class CoffeeMachine implements DrinkMachine {
   private DrinkMaker drinkMaker;
@@ -16,5 +16,10 @@ public class CoffeeMachine implements DrinkMachine {
   @Override
   public void orderDrinkOf(Drink drink) {
     drinkMaker.makeDrinkFromOrder(orderProcessor.orderDrink(drink));
+  }
+
+  @Override
+  public void orderChargedDrinkOf(Drink drink, Money money) {
+    drinkMaker.takeOrderOf(orderProcessor.orderChargedDrink(drink, money));
   }
 }

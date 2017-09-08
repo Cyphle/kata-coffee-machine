@@ -25,6 +25,18 @@ The coffee machine can serves 3 type of drinks: tea, coffee, chocolate.
     - I want to be able to add a stick when there is sugar
     - In order for the customer to shake the drink
 
+### Step 2
+The coffee machine is not free anymore! One tea is 0,4 euro, a coffee is 0,6 euro, a chocolate is 0,5 euro.
+
+- The drink maker should make the drinks only if the correct amount of money is given
+    - As CoffeeMachine
+    - I want to send order to drink maker only if right amount of money is given
+    - In order to not loose money  
+- If not enough money is provided, we want to send a message to the drink maker. The message should contains at least the amount of money missing.
+    - As CoffeeMachine
+    - I want to send message to drink maker that tells that money is missing
+    - In order for him to forward it to client
+
 #### Drink maker protocol
 Drink maker receives string such as:
 - "T:1:0" (Drink maker makes 1 tea with 1 sugar and a stick)
