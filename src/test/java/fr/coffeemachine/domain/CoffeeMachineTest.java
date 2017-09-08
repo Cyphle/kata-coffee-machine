@@ -44,10 +44,8 @@ public class CoffeeMachineTest {
 
   @Test
   public void should_not_save_order_if_not_enough_money() throws Exception {
-    Drink coffee = new Coffee();
+    machine.orderDrinkOf(new DrinkEnum(COFFEE), money.of(0.2).build());
 
-    machine.orderDrinkOf(coffee, money.of(0.2).build());
-
-    verify(saleRepository, never()).addSell(coffee);
+    verify(saleRepository, never()).addSell(new DrinkEnum(COFFEE));
   }
 }
