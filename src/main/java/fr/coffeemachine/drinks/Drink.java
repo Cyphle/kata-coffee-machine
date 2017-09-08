@@ -10,9 +10,8 @@ import static fr.coffeemachine.drinks.SugarStatus.TOO_MUCH_SUGAR;
 
 public abstract class Drink {
   private static final int MAX_SUGARS = 2;
-  private BigDecimal price = new BigDecimal(0.4);
-  private Money priceInMoney = money.of(0.4).build();
   private int numberOfSugars;
+  Money priceInMoney = money.of(0.4).build();
 
   public abstract String getDrinkType();
 
@@ -23,11 +22,15 @@ public abstract class Drink {
   }
 
   public BigDecimal getPrice() {
-    return price;
+    return priceInMoney.getAmount();
   }
 
   public Money getPriceInMoney() {
     return priceInMoney;
+  }
+
+  public boolean isEnoughToPay(Money money) {
+    return priceInMoney.isLowerOrEqual(money);
   }
 
   public int getNumberOfSugars() {
@@ -43,10 +46,6 @@ public abstract class Drink {
 
     this.numberOfSugars = numberOfSugars;
     return SugarStatus.SUGAR_ADDED;
-  }
-
-  public boolean isEnoughToPay(Money money) {
-    return priceInMoney.isLowerOrEqual(money);
   }
 
   @Override

@@ -53,4 +53,11 @@ public class CoffeeMachineFeatureTest {
 
     verify(drinkMaker).takeOrderOf("O:: M:Drink maker makes 1 orange juice");
   }
+
+  @Test
+  public void should_not_send_charged_order_for_orange_juice_if_not_enough_money() throws Exception {
+    machine.orderChargedDrinkOf(new OrangeJuice(), money.of(0.3).build());
+
+    verify(drinkMaker).takeOrderOf("M:Order for 1 orange juice at 0.60 euros is missing 0.30 euros");
+  }
 }
