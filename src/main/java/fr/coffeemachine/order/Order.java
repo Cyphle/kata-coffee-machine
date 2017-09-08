@@ -15,7 +15,7 @@ class Order {
   }
 
   String createOrder() {
-    order.add(getDrinkType());
+    order.add(drink.getDrinkTypeAndTemperature());
 
     if (drink.getNumberOfSugars() > 0) {
       order.add(Integer.toString(drink.getNumberOfSugars()));
@@ -26,7 +26,4 @@ class Order {
     return order.toString();
   }
 
-  private String getDrinkType() {
-    return drink.getDrinkTypeAndTemperature();
-  }
 }
