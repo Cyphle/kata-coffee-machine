@@ -20,6 +20,6 @@ public class CoffeeMachine implements DrinkMachine {
 
   @Override
   public void orderChargedDrinkOf(Drink drink, Money money) {
-    drinkMaker.forwardMissingMoneyMessageToClient(orderProcessor.orderChargedDrink(drink, money));
+    drinkMaker.takeOrderOf(orderProcessor.orderChargedDrink(drink, money));
   }
 }

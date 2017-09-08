@@ -38,7 +38,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
     if (!drink.isEnoughToPay(money)) {
       OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
       return orderMessage.getMessageForDrinkMaker();
-    }
-    return null;
+    } else
+      return orderWithMessage(drink);
   }
 }
