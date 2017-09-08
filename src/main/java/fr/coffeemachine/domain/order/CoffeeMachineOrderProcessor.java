@@ -4,8 +4,6 @@ import fr.coffeemachine.domain.Money;
 import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.drinks.DrinkEnum;
 
-import java.util.StringJoiner;
-
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
   private final OrderMaker orderMaker;
   private final MessageMaker orderMessageMaker;
@@ -13,17 +11,6 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   public CoffeeMachineOrderProcessor(OrderMaker orderMaker, MessageMaker orderMessageMaker) {
     this.orderMaker = orderMaker;
     this.orderMessageMaker = orderMessageMaker;
-  }
-
-  @Override
-  public String createOrderOf(Drink drink) {
-    StringJoiner orderWithMessage = new StringJoiner(" ");
-    orderWithMessage.add(orderMaker.createOrder(drink));
-
-    OrderMessage orderMessage = orderMessageMaker.makeMessageForOrderOf(drink);
-    orderWithMessage.add(orderMessage.getMessageForDrinkMaker());
-
-    return orderWithMessage.toString();
   }
 
   @Override

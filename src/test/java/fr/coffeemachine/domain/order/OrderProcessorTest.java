@@ -28,7 +28,7 @@ public class OrderProcessorTest {
 
   @Test
   public void should_send_empty_string_when_nothing_has_been_ordered() throws Exception {
-//    assertThat(orderProcessor.createOrderOf(null)).isEqualTo("");
+    assertThat(orderProcessor.createOrderOf(null)).isEqualTo("");
   }
 
   @Test
