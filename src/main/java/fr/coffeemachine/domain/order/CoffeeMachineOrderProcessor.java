@@ -1,11 +1,11 @@
 package fr.coffeemachine.domain.order;
 
 import fr.coffeemachine.domain.Money;
-import fr.coffeemachine.domain.drinks.DrinkEnum;
+import fr.coffeemachine.domain.Drink;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
   @Override
-  public String createOrderOf(DrinkEnum drink) {
+  public String createOrderOf(Drink drink) {
     if (drink == null)
       return "";
 
@@ -27,7 +27,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String createOrderForNotEnoughMoney(DrinkEnum drink, Money money) {
+  public String createOrderForNotEnoughMoney(Drink drink, Money money) {
     return "M:Order for 1 "
             + drink.getDrinkName()
             + " at "
@@ -38,7 +38,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String createOrderForBeverageShortage(DrinkEnum drink) {
+  public String createOrderForBeverageShortage(Drink drink) {
     return "M:Sorry but " + drink.getDrinkName() + " is not available at the moment";
   }
 }

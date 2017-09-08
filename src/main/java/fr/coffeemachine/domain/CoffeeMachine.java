@@ -1,7 +1,5 @@
 package fr.coffeemachine.domain;
 
-import fr.coffeemachine.domain.drinks.DrinkEnum;
-import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.order.OrderProcessor;
 
 public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, EmailNotifier {
@@ -16,7 +14,7 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   }
 
   @Override
-  public String orderDrinkOf(DrinkEnum drink, Money money) {
+  public String orderDrinkOf(Drink drink, Money money) {
     if (!drink.isEnoughToPay(money))
       return orderProcessor.createOrderForNotEnoughMoney(drink, money);
 
@@ -36,12 +34,7 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   }
 
   @Override
-  public boolean isEmpty(DrinkEnum drink) {
-    return drink.isEmpty();
-  }
-
-  @Override
-  public void notifyMissingDrink(DrinkEnum drink) {
+  public void notifyMissingDrink(Drink drink) {
     emailSender.sendBeverageShortageNotification(drink);
   }
 }

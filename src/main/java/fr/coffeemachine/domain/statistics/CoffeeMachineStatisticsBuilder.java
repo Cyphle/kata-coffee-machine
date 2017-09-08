@@ -1,12 +1,10 @@
 package fr.coffeemachine.domain.statistics;
 
 import fr.coffeemachine.domain.SaleRepository;
-import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.domain.drinks.DrinkEnum;
+import fr.coffeemachine.domain.Drink;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,7 +21,7 @@ public class CoffeeMachineStatisticsBuilder implements StatisticsBuilder {
 
   @Override
   public void printStatisticsOfToday(StatisticsPrinter printer) {
-    Map<DrinkEnum, Quantity> salesByDrink = new TreeMap<>();
+    Map<Drink, Quantity> salesByDrink = new TreeMap<>();
     List<Sale> sales = saleRepository.getSalesOf(dateService.getTodayDate());
     sales.stream()
             .collect(Collectors.groupingBy(Sale::getDrink))

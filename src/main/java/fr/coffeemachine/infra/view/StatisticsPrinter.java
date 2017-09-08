@@ -1,12 +1,12 @@
 package fr.coffeemachine.infra.view;
 
-import fr.coffeemachine.domain.drinks.DrinkEnum;
+import fr.coffeemachine.domain.Drink;
 import fr.coffeemachine.domain.statistics.Quantity;
 
 import java.util.Map;
 
 public interface StatisticsPrinter {
-  void collectForPrint(Map<DrinkEnum, Quantity> sales);
+  void collectForPrint(Map<Drink, Quantity> sales);
 
   String flush();
 }

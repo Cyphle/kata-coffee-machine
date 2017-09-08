@@ -1,8 +1,6 @@
 package fr.coffeemachine.infra.entities;
 
-import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.domain.drinks.DrinkEnum;
-import fr.coffeemachine.domain.drinks.DrinkFactory;
+import fr.coffeemachine.domain.Drink;
 import fr.coffeemachine.domain.statistics.Sale;
 
 import java.time.ZoneId;
@@ -28,17 +26,10 @@ public class SaleEntity {
   }
 
   public Sale fromEntityToDomain() {
-//    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), DrinkFactory.makeDrink(drinkName));
-    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), new DrinkEnum(DrinkEnum.InternalDrinkEnum.valueOf(drinkName)));
+    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), new Drink(Drink.AvailableDrink.valueOf(drinkName)));
   }
 
   public static SaleEntity fromDomainToEntity(Drink drink) {
-    SaleEntity sale = new SaleEntity();
-    sale.setDrinkName(drink.getDrinkName());
-    return sale;
-  }
-
-  public static SaleEntity fromDomainToEntity(DrinkEnum drink) {
     SaleEntity sale = new SaleEntity();
     sale.setDrinkName(drink.getDrink());
     return sale;

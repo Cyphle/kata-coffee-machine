@@ -1,19 +1,19 @@
 package fr.coffeemachine.domain.statistics;
 
-import fr.coffeemachine.domain.drinks.DrinkEnum;
+import fr.coffeemachine.domain.Drink;
 
 import java.time.LocalDate;
 
 public class Sale {
   private final LocalDate saleDate;
-  private DrinkEnum drink;
+  private Drink drink;
 
-  public Sale(LocalDate saleDate, DrinkEnum drink) {
+  public Sale(LocalDate saleDate, Drink drink) {
     this.saleDate = saleDate;
     this.drink = drink;
   }
 
-  public DrinkEnum getDrink() {
+  public Drink getDrink() {
     return drink;
   }
 }

@@ -1,20 +1,19 @@
-package fr.coffeemachine.domain.drinks;
+package fr.coffeemachine.domain;
 
-import fr.coffeemachine.domain.Money;
 import fr.coffeemachine.domain.statistics.Quantity;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static fr.coffeemachine.domain.Money.money;
-import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.ORANGE_JUICE;
+import static fr.coffeemachine.domain.Drink.AvailableDrink.ORANGE_JUICE;
 
-public class DrinkEnum implements Comparable<DrinkEnum> {
+public class Drink implements Comparable<Drink> {
   private int sugarNumber = 0;
   private boolean isExtraHot = false;
-  private InternalDrinkEnum drink;
+  private AvailableDrink drink;
 
-  public DrinkEnum(InternalDrinkEnum drink) {
+  public Drink(AvailableDrink drink) {
     this.drink = drink;
   }
 
@@ -69,7 +68,7 @@ public class DrinkEnum implements Comparable<DrinkEnum> {
   }
 
   @Override
-  public int compareTo(DrinkEnum o) {
+  public int compareTo(Drink o) {
     return drink.toString().compareTo(o.drink.toString());
   }
 
@@ -78,11 +77,11 @@ public class DrinkEnum implements Comparable<DrinkEnum> {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
-    DrinkEnum drinkEnum = (DrinkEnum) o;
+    Drink drink = (Drink) o;
 
-    if (sugarNumber != drinkEnum.sugarNumber) return false;
-    if (isExtraHot != drinkEnum.isExtraHot) return false;
-    return drink == drinkEnum.drink;
+    if (sugarNumber != drink.sugarNumber) return false;
+    if (isExtraHot != drink.isExtraHot) return false;
+    return this.drink == drink.drink;
   }
 
   @Override
@@ -97,7 +96,7 @@ public class DrinkEnum implements Comparable<DrinkEnum> {
     drink.decreaseNumberAvailableDrink();
   }
 
-  public enum InternalDrinkEnum {
+  public enum AvailableDrink {
     COFFEE("C", money.of(0.4).build(), new Quantity(10)),
     TEA("T", money.of(0.4).build(), new Quantity(10)),
     CHOCOLATE("H", money.of(0.4).build(), new Quantity(1)),
@@ -107,7 +106,7 @@ public class DrinkEnum implements Comparable<DrinkEnum> {
     public final Money price;
     public Quantity quantity;
 
-    InternalDrinkEnum(String code, Money price, Quantity quantity) {
+    AvailableDrink(String code, Money price, Quantity quantity) {
       this.code = code;
       this.price = price;
       this.quantity = quantity;

@@ -1,8 +1,7 @@
 package fr.coffeemachine.infra.adaptors;
 
 import fr.coffeemachine.domain.SaleRepository;
-import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.domain.drinks.DrinkEnum;
+import fr.coffeemachine.domain.Drink;
 import fr.coffeemachine.domain.statistics.Sale;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.entities.SaleEntity;
@@ -23,13 +22,6 @@ public class SaleRepositoryAdaptor implements SaleRepository {
 
   @Override
   public void addSell(Drink drink) {
-    SaleEntity sale = SaleEntity.fromDomainToEntity(drink);
-    sale.setSellingDate(dateService.getTodayDate());
-    dbSaleRepository.save(sale);
-  }
-
-  @Override
-  public void addSell(DrinkEnum drink) {
     SaleEntity sale = SaleEntity.fromDomainToEntity(drink);
     sale.setSellingDate(dateService.getTodayDate());
     dbSaleRepository.save(sale);
