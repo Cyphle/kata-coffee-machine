@@ -14,7 +14,7 @@ public abstract class Drink {
   private boolean isExtraHot = false;
   Money priceInMoney = money.of(0.4).build();
 
-  public abstract String getDrinkType();
+  abstract String getDrinkType();
 
   public abstract String getDrinkName();
 
@@ -59,10 +59,7 @@ public abstract class Drink {
   }
 
   public String getDrinkTypeAndTemperature() {
-    String typeAndTemperature = getDrinkType();
-    if (isExtraHot)
-      typeAndTemperature += "h";
-    return typeAndTemperature;
+    return getDrinkType() + (isExtraHot ? "h" : "");
   }
 
   @Override
