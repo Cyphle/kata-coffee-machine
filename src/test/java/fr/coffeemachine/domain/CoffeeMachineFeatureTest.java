@@ -110,16 +110,6 @@ public class CoffeeMachineFeatureTest {
 
   @Test
   public void should_get_statistics_of_sells_when_asked_for() throws Exception {
-//    Drink coffee = new Coffee();
-//    Drink tea = new Tea();
-//    Drink teaWithSugar = new Tea();
-//    teaWithSugar.addSugar(1);
-//    Drink orangeJuice = new OrangeJuice();
-
-//    machine.orderDrinkOf(coffee, money.of(0.4).build());
-//    machine.orderDrinkOf(tea, money.of(0.4).build());
-//    machine.orderDrinkOf(teaWithSugar, money.of(0.4).build());
-//    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
     machine.orderDrinkOf(new DrinkEnum(COFFEE), money.of(0.4).build());
     machine.orderDrinkOf(new DrinkEnum(TEA), money.of(0.4).build());
     DrinkEnum teaWithSugar = new DrinkEnum(TEA);
@@ -128,8 +118,8 @@ public class CoffeeMachineFeatureTest {
     machine.orderDrinkOf(new DrinkEnum(ORANGE_JUICE), money.of(0.6).build());
 
     statisticsBuilder.printStatisticsOfToday(console);
-    
-    assertThat(console.flush()).isEqualTo("Sells : 1 orange juice - 2 teas - 1 coffee\nTotal : 1.80 euros");
+
+    assertThat(console.flush()).isEqualTo("Sells : 1 coffee - 2 teas - 1 orange juice\nTotal : 1.80 euros");
   }
 
   @Test

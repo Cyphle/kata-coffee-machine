@@ -2,6 +2,7 @@ package fr.coffeemachine.infra.view;
 
 import fr.coffeemachine.domain.Money;
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.drinks.DrinkEnum;
 import fr.coffeemachine.domain.statistics.Quantity;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ public class ConsoleStatisticsPrinter implements StatisticsPrinter {
   }
 
   @Override
-  public void collectForPrint(Map<Drink, Quantity> sales) {
+  public void collectForPrint(Map<DrinkEnum, Quantity> sales) {
     setListOfSales(sales);
     buffer.append("\n");
     setTotalSales(sales);
@@ -32,14 +33,14 @@ public class ConsoleStatisticsPrinter implements StatisticsPrinter {
     return printable;
   }
 
-  private void setListOfSales(Map<Drink, Quantity> sales) {
+  private void setListOfSales(Map<DrinkEnum, Quantity> sales) {
     buffer.append("Sells : ");
     StringJoiner drinkSales = new StringJoiner(DELIMITER);
     sales.forEach((key, value) -> drinkSales.add(value.getQuantity() + " " + key.getDrinkName() + (value.getQuantity() > 1 ? "s" : "")));
     buffer.append(drinkSales.toString());
   }
 
-  private void setTotalSales(Map<Drink, Quantity> sales) {
+  private void setTotalSales(Map<DrinkEnum, Quantity> sales) {
     buffer.append("Total : ");
     Money total = sales.entrySet()
             .stream()

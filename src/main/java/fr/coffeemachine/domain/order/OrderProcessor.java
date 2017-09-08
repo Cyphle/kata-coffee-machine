@@ -8,9 +8,9 @@ public interface OrderProcessor {
   String makeDrinkOrder(Drink drink);
 
   @Deprecated
-  String makeOrderWithMessage(Drink drink);
+  String createOrderOf(Drink drink);
 
-  String makeOrderWithMessage(DrinkEnum drink);
+  String createOrderOf(DrinkEnum drink);
 
   @Deprecated
   String makeOrderWithNotEnoughMoney(Drink drink, Money money);

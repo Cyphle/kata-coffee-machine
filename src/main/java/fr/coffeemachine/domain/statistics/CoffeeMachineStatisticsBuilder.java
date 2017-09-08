@@ -2,6 +2,7 @@ package fr.coffeemachine.domain.statistics;
 
 import fr.coffeemachine.domain.SaleRepository;
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.drinks.DrinkEnum;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 
@@ -21,7 +22,7 @@ public class CoffeeMachineStatisticsBuilder implements StatisticsBuilder {
 
   @Override
   public void printStatisticsOfToday(StatisticsPrinter printer) {
-    Map<Drink, Quantity> salesByDrink = new HashMap<>();
+    Map<DrinkEnum, Quantity> salesByDrink = new HashMap<>();
     List<Sale> sales = saleRepository.getSalesOf(dateService.getTodayDate());
     sales.stream()
             .collect(Collectors.groupingBy(Sale::getDrink))

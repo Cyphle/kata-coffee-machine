@@ -24,7 +24,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String makeOrderWithMessage(Drink drink) {
+  public String createOrderOf(Drink drink) {
     StringJoiner orderWithMessage = new StringJoiner(" ");
     orderWithMessage.add(orderMaker.createOrder(drink));
 
@@ -35,7 +35,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String makeOrderWithMessage(DrinkEnum drink) {
+  public String createOrderOf(DrinkEnum drink) {
     String order = drink.getTypeAndTemperature()
             + ":"
             + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) + ":0" : ":");

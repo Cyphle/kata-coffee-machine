@@ -83,7 +83,7 @@ public class OrderProcessorTest {
     given(orderMessageMaker.makeMessageForOrderOf(coffeeWithSugar)).willReturn(new OrderMessage("Drink maker makes 1 tea with 1 sugar and a stick"));
     given(orderMaker.createOrder(coffeeWithSugar)).willReturn("C:1:0");
 
-    assertThat(orderProcessor.makeOrderWithMessage(coffeeWithSugar)).isEqualTo("C:1:0 M:Drink maker makes 1 tea with 1 sugar and a stick");
+    assertThat(orderProcessor.createOrderOf(coffeeWithSugar)).isEqualTo("C:1:0 M:Drink maker makes 1 tea with 1 sugar and a stick");
     verify(orderMessageMaker).makeMessageForOrderOf(coffeeWithSugar);
     verify(orderMaker).createOrder(coffeeWithSugar);
   }
@@ -94,7 +94,7 @@ public class OrderProcessorTest {
     given(orderMessageMaker.makeMessageForOrderOf(chocolate)).willReturn(new OrderMessage("Drink maker makes 1 chocolate with no sugar - and therefore no stick"));
     given(orderMaker.createOrder(chocolate)).willReturn("H::");
 
-    assertThat(orderProcessor.makeOrderWithMessage(chocolate)).isEqualTo("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+    assertThat(orderProcessor.createOrderOf(chocolate)).isEqualTo("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
     verify(orderMessageMaker).makeMessageForOrderOf(chocolate);
     verify(orderMaker).createOrder(chocolate);
   }

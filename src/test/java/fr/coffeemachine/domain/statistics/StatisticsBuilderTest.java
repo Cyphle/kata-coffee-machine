@@ -1,10 +1,7 @@
 package fr.coffeemachine.domain.statistics;
 
 import fr.coffeemachine.domain.SaleRepository;
-import fr.coffeemachine.domain.drinks.Coffee;
-import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.domain.drinks.OrangeJuice;
-import fr.coffeemachine.domain.drinks.Tea;
+import fr.coffeemachine.domain.drinks.*;
 import fr.coffeemachine.infra.DateService;
 import fr.coffeemachine.infra.view.StatisticsPrinter;
 import org.junit.Before;
@@ -17,6 +14,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.COFFEE;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.ORANGE_JUICE;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.TEA;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -45,10 +45,10 @@ public class StatisticsBuilderTest {
 
     statisticsBuilder.printStatisticsOfToday(console);
 
-    Map<Drink, Quantity> sales = new HashMap<>();
-    sales.put(new Coffee(), new Quantity(1));
-    sales.put(new Tea(), new Quantity(2));
-    sales.put(new OrangeJuice(), new Quantity(1));
+    Map<DrinkEnum, Quantity> sales = new HashMap<>();
+    sales.put(new DrinkEnum(COFFEE), new Quantity(1));
+    sales.put(new DrinkEnum(TEA), new Quantity(2));
+    sales.put(new DrinkEnum(ORANGE_JUICE), new Quantity(1));
     verify(console).collectForPrint(sales);
   }
 }

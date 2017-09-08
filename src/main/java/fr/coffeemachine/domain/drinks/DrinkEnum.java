@@ -26,12 +26,20 @@ public class DrinkEnum {
     return drink.isEmpty();
   }
 
+  public String getDrink() {
+    return drink.toString();
+  }
+
   public String getDrinkName() {
     return drink.getDrinkName();
   }
 
   public BigDecimal getPrice() {
     return drink.getPrice();
+  }
+
+  public Money getPriceInMoney() {
+    return drink.price;
   }
 
   public String getTypeAndTemperature() {
@@ -84,7 +92,7 @@ public class DrinkEnum {
     COFFEE("C", money.of(0.4).build(), new Quantity(10)),
     TEA("T", money.of(0.4).build(), new Quantity(10)),
     CHOCOLATE("H", money.of(0.4).build(), new Quantity(1)),
-    ORANGE_JUICE("O", money.of(0.4).build(), new Quantity(10));
+    ORANGE_JUICE("O", money.of(0.6).build(), new Quantity(10));
 
     public final String code;
     public final Money price;

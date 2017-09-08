@@ -25,7 +25,7 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
 
 //    drink.decreaseNumberAvailableBeverage();
     saleRepository.addSell(drink);
-    return orderProcessor.makeOrderWithMessage(drink);
+    return orderProcessor.createOrderOf(drink);
   }
 
   @Override
@@ -60,7 +60,7 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
 
   private void processDrinkOrder(Drink drink) {
     drink.decreaseNumberAvailableBeverage();
-    drinkMaker.takeOrderOf(orderProcessor.makeOrderWithMessage(drink));
+    drinkMaker.takeOrderOf(orderProcessor.createOrderOf(drink));
     saleRepository.addSell(drink);
   }
 

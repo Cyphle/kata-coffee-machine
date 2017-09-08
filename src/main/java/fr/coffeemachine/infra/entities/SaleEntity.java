@@ -28,7 +28,8 @@ public class SaleEntity {
   }
 
   public Sale fromEntityToDomain() {
-    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), DrinkFactory.makeDrink(drinkName));
+//    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), DrinkFactory.makeDrink(drinkName));
+    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), new DrinkEnum(DrinkEnum.InternalDrinkEnum.valueOf(drinkName)));
   }
 
   public static SaleEntity fromDomainToEntity(Drink drink) {
@@ -39,7 +40,7 @@ public class SaleEntity {
 
   public static SaleEntity fromDomainToEntity(DrinkEnum drink) {
     SaleEntity sale = new SaleEntity();
-    sale.setDrinkName(drink.getDrinkName());
+    sale.setDrinkName(drink.getDrink());
     return sale;
   }
 
