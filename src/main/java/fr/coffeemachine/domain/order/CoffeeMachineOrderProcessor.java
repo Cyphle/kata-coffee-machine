@@ -37,6 +37,23 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
+  public String makeOrderWithMessage(DrinkEnum drink) {
+    String order = drink.getTypeAndTemperature()
+            + ":"
+            + (drink.getNumberOfSugars() > 0 ? String.valueOf(drink.getNumberOfSugars()) + ":0" : "::");
+
+    order += " M:Drink maker makes 1 "
+            + drink.getDrinkName()
+            + " with "
+            + String.valueOf(drink.getNumberOfSugars())
+            + " sugar"
+            + (drink.getNumberOfSugars() > 1 ? "s" : "")
+            + " and a stick";
+
+    return order;
+  }
+
+  @Override
   public String makeOrderWithNotEnoughMoney(Drink drink, Money money) {
     OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
     return orderMessage.getMessageForDrinkMaker();
@@ -49,7 +66,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
             + " at "
             + drink.getPrice()
             + " euros is missing "
-            + drink.calculateMissingMoney(money)
+            + drink.calculateMissingMoney(money).getAmount()
             + " euros";
   }
 

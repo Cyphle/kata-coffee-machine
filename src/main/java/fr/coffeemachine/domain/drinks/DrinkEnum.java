@@ -8,43 +8,89 @@ import java.util.Arrays;
 
 import static fr.coffeemachine.domain.Money.money;
 
-public enum DrinkEnum {
-  COFFEE("C", money.of(0.4).build(), true, true, new Quantity(10)),
-  TEA("T", money.of(0.4).build(), true, true, new Quantity(10)),
-  CHOCOLATE("H", money.of(0.4).build(), true, true, new Quantity(1)),
-  ORANGE_JUICE("O", money.of(0.4).build(), false, false, new Quantity(10));
+public class DrinkEnum {
+  private int sugarNumber = 0;
+  private boolean isExtraHot = false;
+  private InternalDrinkEnum drink;
 
-  public final String code;
-  public final Money price;
-  public final boolean canHaveSugar;
-  public final boolean canBeExtraHot;
-  public Quantity quantity;
+  public DrinkEnum(InternalDrinkEnum drink) {
+    this.drink = drink;
+  }
 
-  DrinkEnum(String code, Money price, boolean canHaveSugar, boolean canBeExtraHot, Quantity quantity) {
-    this.code = code;
-    this.price = price;
-    this.canHaveSugar = canHaveSugar;
-    this.canBeExtraHot = canBeExtraHot;
-    this.quantity = quantity;
+  public boolean isEnoughToPay(Money money) {
+    return drink.isEnoughToPay(money);
   }
 
   public boolean isEmpty() {
-    return quantity.isZero();
+    return drink.isEmpty();
   }
 
   public String getDrinkName() {
-    return Arrays.asList(toString().split("_"))
-            .stream()
-            .reduce("", (namePart, namePartTwo) -> namePart + " " + namePartTwo)
-            .trim()
-            .toLowerCase();
+    return drink.getDrinkName();
   }
 
   public BigDecimal getPrice() {
-    return price.getAmount();
+    return drink.getPrice();
   }
 
-  public BigDecimal calculateMissingMoney(Money referenceMoney) {
-    return price.subtract(referenceMoney).getAmount();
+  public String getTypeAndTemperature() {
+    return drink.code + (isExtraHot ? "h" : "");
+  }
+
+  public Money calculateMissingMoney(Money paidAmount) {
+    return drink.calculateMissingMoney(paidAmount);
+  }
+
+  public boolean hasSugar() {
+    return sugarNumber > 0;
+  }
+
+  public void withSugar(int numberOfSugar) {
+    this.sugarNumber = numberOfSugar;
+  }
+
+  public int getNumberOfSugars() {
+    return sugarNumber;
+  }
+
+  public enum InternalDrinkEnum {
+    COFFEE("C", money.of(0.4).build(), new Quantity(10)),
+    TEA("T", money.of(0.4).build(), new Quantity(10)),
+    CHOCOLATE("H", money.of(0.4).build(), new Quantity(1)),
+    ORANGE_JUICE("O", money.of(0.4).build(), new Quantity(10));
+
+    public final String code;
+    public final Money price;
+    public Quantity quantity;
+
+    InternalDrinkEnum(String code, Money price, Quantity quantity) {
+      this.code = code;
+      this.price = price;
+      this.quantity = quantity;
+    }
+
+    public boolean isEmpty() {
+      return quantity.isZero();
+    }
+
+    public String getDrinkName() {
+      return Arrays.asList(toString().split("_"))
+              .stream()
+              .reduce("", (namePart, namePartTwo) -> namePart + " " + namePartTwo)
+              .trim()
+              .toLowerCase();
+    }
+
+    public BigDecimal getPrice() {
+      return price.getAmount();
+    }
+
+    public Money calculateMissingMoney(Money paidAmount) {
+      return price.subtract(paidAmount);
+    }
+
+    public boolean isEnoughToPay(Money paidAmount) {
+      return calculateMissingMoney(paidAmount).isInferiorOrEqualAs(money.of(0).build());
+    }
   }
 }

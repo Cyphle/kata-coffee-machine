@@ -33,6 +33,10 @@ public class Money {
     return money.of(amount.multiply(new BigDecimal(factor))).build();
   }
 
+  public boolean isInferiorOrEqualAs(Money toCompare) {
+    return amount.compareTo(toCompare.amount) <= 0;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

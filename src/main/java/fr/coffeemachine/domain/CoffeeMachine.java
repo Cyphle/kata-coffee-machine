@@ -20,7 +20,12 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
 
   @Override
   public String orderDrinkOf(DrinkEnum drink, Money money) {
-    return orderProcessor.makeOrderWithNotEnoughMoney(drink, money);
+    if (!drink.isEnoughToPay(money))
+      return orderProcessor.makeOrderWithNotEnoughMoney(drink, money);
+
+//    drink.decreaseNumberAvailableBeverage();
+//    saleRepository.addSell(drink);
+    return orderProcessor.makeOrderWithMessage(drink);
   }
 
   @Override
