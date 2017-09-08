@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static fr.coffeemachine.Money.money;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class OrderMessageMakerTest {
@@ -40,6 +41,6 @@ public class OrderMessageMakerTest {
 
   @Test
   public void should_make_message_for_not_enough_money_when_ordering_coffee_with_not_enough_money() throws Exception {
-    assertThat(messageMaker.makeNotEnoughMoneyMessage(new Coffee(), new BigDecimal(0.2))).isEqualTo(new OrderMessage("Order for 1 coffee at 0.40 euros is missing 0.20 euros"));
+    assertThat(messageMaker.makeNotEnoughMoneyMessage(new Coffee(), money.of(0.2).build())).isEqualTo(new OrderMessage("Order for 1 coffee at 0.40 euros is missing 0.20 euros"));
   }
 }

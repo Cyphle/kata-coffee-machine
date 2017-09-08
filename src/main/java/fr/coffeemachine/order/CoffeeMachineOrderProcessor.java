@@ -1,8 +1,8 @@
 package fr.coffeemachine.order;
 
+import fr.coffeemachine.Money;
 import fr.coffeemachine.drinks.Drink;
 
-import java.math.BigDecimal;
 import java.util.StringJoiner;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
@@ -34,7 +34,7 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String orderChargedDrink(Drink drink, BigDecimal money) {
+  public String orderChargedDrink(Drink drink, Money money) {
     if (!drink.isEnoughToPay(money)) {
       OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
       return orderMessage.getMessageForDrinkMaker();

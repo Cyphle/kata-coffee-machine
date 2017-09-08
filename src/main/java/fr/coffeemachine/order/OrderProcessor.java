@@ -1,5 +1,6 @@
 package fr.coffeemachine.order;
 
+import fr.coffeemachine.Money;
 import fr.coffeemachine.drinks.Drink;
 
 import java.math.BigDecimal;
@@ -9,5 +10,5 @@ public interface OrderProcessor {
 
   String orderWithMessage(Drink drink);
 
-  String orderChargedDrink(Drink drink, BigDecimal money);
+  String orderChargedDrink(Drink drink, Money money);
 }

@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 public interface DrinkMachine {
   void orderDrinkOf(Drink drink);
 
-  void orderChargedDrinkOf(Drink drink, BigDecimal money);
+  void orderChargedDrinkOf(Drink drink, Money money);
 }

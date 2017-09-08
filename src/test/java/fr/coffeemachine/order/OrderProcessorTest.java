@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 
+import static fr.coffeemachine.Money.money;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -103,8 +104,8 @@ public class OrderProcessorTest {
 
   @Test
   public void should_send_not_enough_money_message_when_creating_an_order_for_a_charged_drink_with_not_enough_money() throws Exception {
-    given(orderMessageMaker.makeNotEnoughMoneyMessage(new Coffee(), new BigDecimal(0.2))).willReturn(new OrderMessage("Order for 1 coffee at 0.4 euros is missing 0.20 euros"));
+    given(orderMessageMaker.makeNotEnoughMoneyMessage(new Coffee(), money.of(0.2).build())).willReturn(new OrderMessage("Order for 1 coffee at 0.4 euros is missing 0.20 euros"));
 
-    assertThat(orderProcessor.orderChargedDrink(new Coffee(), new BigDecimal(0.2))).isEqualTo("M:Order for 1 coffee at 0.4 euros is missing 0.20 euros");
+    assertThat(orderProcessor.orderChargedDrink(new Coffee(), money.of(0.2).build())).isEqualTo("M:Order for 1 coffee at 0.4 euros is missing 0.20 euros");
   }
 }

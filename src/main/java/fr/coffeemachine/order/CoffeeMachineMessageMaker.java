@@ -1,27 +1,23 @@
 package fr.coffeemachine.order;
 
+import fr.coffeemachine.Money;
 import fr.coffeemachine.drinks.Drink;
-
-import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ROUND_FLOOR;
 
 public class CoffeeMachineMessageMaker implements MessageMaker {
   @Override
   public OrderMessage makeMessageForOrderOf(Drink drink) {
-    return buildMessage(drink.getDrinkName(), drink.getNumberOfSugars());
+    return new OrderMessage(getBeginningOfSentence() +
+            drink.getDrinkName() +
+            getSugarSentence(drink.getNumberOfSugars()) +
+            getStickSentence(drink.getNumberOfSugars()));
   }
 
   @Override
-  public OrderMessage makeNotEnoughMoneyMessage(Drink drink, BigDecimal money) {
-    return new OrderMessage("Order for 1 " + drink.getDrinkName() + " at " + drink.getPrice().setScale(2, ROUND_FLOOR) + " euros is missing " + (drink.getPrice().subtract(money).setScale(2, ROUND_FLOOR)) + " euros");
-  }
-
-  private OrderMessage buildMessage(String drinkName, int numberOfSugars) {
-    return new OrderMessage(getBeginningOfSentence() +
-            drinkName +
-            getSugarSentence(numberOfSugars) +
-            getStickSentence(numberOfSugars));
+  public OrderMessage makeNotEnoughMoneyMessage(Drink drink, Money money) {
+    OrderMessage orderMessage = new OrderMessage("Order for 1 " + drink.getDrinkName() + " at " + drink.getPrice().setScale(2, ROUND_FLOOR) + " euros is missing " + (drink.getPriceInMoney().subtract(money).getAmount().setScale(2, ROUND_FLOOR)) + " euros");
+    return orderMessage;
   }
 
   private String getBeginningOfSentence() {
