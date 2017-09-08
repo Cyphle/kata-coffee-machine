@@ -21,4 +21,9 @@ public class OrangeJuice extends Drink {
   public boolean canHaveSugar() {
     return false;
   }
+
+  @Override
+  public boolean canBeExtraHot() {
+    return false;
+  }
 }

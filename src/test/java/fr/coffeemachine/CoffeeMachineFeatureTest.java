@@ -60,4 +60,15 @@ public class CoffeeMachineFeatureTest {
 
     verify(drinkMaker).takeOrderOf("M:Order for 1 orange juice at 0.60 euros is missing 0.30 euros");
   }
+
+  @Test
+  public void should_send_charge_coffee_extra_hot_when_there_is_enough_money_and_is_asked_extra_hot() throws Exception {
+    Drink coffee = new Coffee();
+    coffee.addSugar(1);
+    coffee.setExtraHot();
+
+    machine.orderChargedDrinkOf(coffee, money.of(0.4).build());
+
+    verify(drinkMaker).takeOrderOf("Ch:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
+  }
 }

@@ -11,6 +11,7 @@ import static fr.coffeemachine.drinks.SugarStatus.TOO_MUCH_SUGAR;
 public abstract class Drink {
   private static final int MAX_SUGARS = 2;
   private int numberOfSugars;
+  private boolean isExtraHot = false;
   Money priceInMoney = money.of(0.4).build();
 
   public abstract String getDrinkType();
@@ -46,6 +47,22 @@ public abstract class Drink {
 
     this.numberOfSugars = numberOfSugars;
     return SugarStatus.SUGAR_ADDED;
+  }
+
+  protected boolean canBeExtraHot() {
+    return true;
+  }
+
+  public void setExtraHot() {
+    if (canBeExtraHot())
+      isExtraHot = true;
+  }
+
+  public String getDrinkTypeAndTemperature() {
+    String typeAndTemperature = getDrinkType();
+    if (isExtraHot)
+      typeAndTemperature += "h";
+    return typeAndTemperature;
   }
 
   @Override
