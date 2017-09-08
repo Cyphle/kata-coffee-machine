@@ -1,11 +1,13 @@
 package fr.coffeemachine.domain;
 
 import fr.coffeemachine.domain.drinks.Coffee;
+import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.drinks.OrangeJuice;
 import fr.coffeemachine.domain.drinks.Tea;
+import fr.coffeemachine.domain.statistics.Quantity;
 import fr.coffeemachine.domain.statistics.Sale;
 import fr.coffeemachine.infra.DateService;
-import fr.coffeemachine.infra.StatisticsPrinter;
+import fr.coffeemachine.infra.view.StatisticsPrinter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,10 +47,10 @@ public class StatisticsBuilderTest {
 
     statisticsBuilder.printStatistics(console);
 
-    Map<String, Integer> sales = new HashMap<>();
-    sales.put("coffee", 1);
-    sales.put("tea", 2);
-    sales.put("orange juice", 1);
+    Map<Drink, Quantity> sales = new HashMap<>();
+    sales.put(new Coffee(), new Quantity(1));
+    sales.put(new Tea(), new Quantity(2));
+    sales.put(new OrangeJuice(), new Quantity(1));
     verify(console).collectForPrint(sales);
   }
 }

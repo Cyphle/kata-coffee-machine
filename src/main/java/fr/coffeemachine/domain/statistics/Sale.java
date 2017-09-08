@@ -13,7 +13,7 @@ public class Sale {
     this.drink = drink;
   }
 
-  public String getDrinkType() {
-    return drink.getDrinkName();
+  public Drink getDrink() {
+    return drink;
   }
 }

@@ -1,6 +1,6 @@
 package fr.coffeemachine.domain;
 
-import fr.coffeemachine.infra.StatisticsPrinter;
+import fr.coffeemachine.infra.view.StatisticsPrinter;
 
 public interface StatisticsBuilder {
   void printStatistics(StatisticsPrinter printer);

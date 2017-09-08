@@ -3,7 +3,6 @@ package fr.coffeemachine.domain;
 import fr.coffeemachine.domain.drinkmaker.DrinkMaker;
 import fr.coffeemachine.domain.order.OrderProcessor;
 import fr.coffeemachine.domain.drinks.Drink;
-import fr.coffeemachine.infra.StatisticsPrinter;
 
 public class CoffeeMachine implements DrinkMachine {
   private DrinkMaker drinkMaker;

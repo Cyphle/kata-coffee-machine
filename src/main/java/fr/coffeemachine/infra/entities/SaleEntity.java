@@ -1,7 +1,10 @@
 package fr.coffeemachine.infra.entities;
 
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.drinks.DrinkFactory;
+import fr.coffeemachine.domain.statistics.Sale;
 
+import java.time.ZoneId;
 import java.util.Date;
 
 public class SaleEntity {
@@ -25,6 +28,10 @@ public class SaleEntity {
 
   public void setDrinkName(String drinkName) {
     this.drinkName = drinkName;
+  }
+
+  public Sale fromEntityToDomain() {
+    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), DrinkFactory.makeDrink(drinkName));
   }
 
   public static SaleEntity fromDomainToEntity(Drink drink) {

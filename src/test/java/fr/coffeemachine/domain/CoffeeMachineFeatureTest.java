@@ -6,19 +6,24 @@ import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.drinks.OrangeJuice;
 import fr.coffeemachine.domain.drinks.Tea;
 import fr.coffeemachine.infra.DateService;
-import fr.coffeemachine.infra.StatisticsPrinter;
+import fr.coffeemachine.infra.view.StatisticsPrinter;
 import fr.coffeemachine.domain.order.*;
 import fr.coffeemachine.infra.adaptors.SaleRepositoryAdaptor;
 import fr.coffeemachine.infra.repositories.InMemorySaleRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.util.Date;
+
 import static fr.coffeemachine.domain.Money.money;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,8 +33,7 @@ public class CoffeeMachineFeatureTest {
   @Mock
   private DrinkMaker drinkMaker;
   @Mock
-  private
-  DateService dateService;
+  private DateService dateService;
   private DrinkMachine machine;
   private StatisticsBuilder statisticsBuilder;
 
@@ -42,6 +46,8 @@ public class CoffeeMachineFeatureTest {
     machine = new CoffeeMachine(drinkMaker, orderProcessor, saleRepository);
 
     statisticsBuilder = new CoffeeMachineStatisticsBuilder(saleRepository, dateService);
+
+    given(dateService.getTodayDate()).willReturn(Date.from(LocalDate.of(2017, Month.SEPTEMBER, 8).atStartOfDay(ZoneId.systemDefault()).toInstant()));
   }
 
   @Test

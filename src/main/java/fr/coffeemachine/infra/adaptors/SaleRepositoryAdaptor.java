@@ -9,6 +9,7 @@ import fr.coffeemachine.infra.repositories.DBSaleRepository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SaleRepositoryAdaptor implements SaleRepository {
   private DBSaleRepository dbSaleRepository;
@@ -28,6 +29,10 @@ public class SaleRepositoryAdaptor implements SaleRepository {
 
   @Override
   public List<Sale> getSalesOf(Date requiredDate) {
-    throw new UnsupportedOperationException();
+    return dbSaleRepository.findAll()
+            .stream()
+            .filter(sale -> sale.getSellingDate().equals(requiredDate))
+            .map(SaleEntity::fromEntityToDomain)
+            .collect(Collectors.toList());
   }
 }

@@ -17,4 +17,9 @@ public class InMemorySaleRepository implements DBSaleRepository {
     sales.add(sale);
     return sale;
   }
+
+  @Override
+  public List<SaleEntity> findAll() {
+    return sales;
+  }
 }
