@@ -5,24 +5,33 @@ import fr.coffeemachine.Money;
 import java.math.BigDecimal;
 
 import static fr.coffeemachine.Money.money;
+import static fr.coffeemachine.drinks.SugarStatus.SUGAR_NOT_ALLOWED_FOR_THIS_DRINK;
 import static fr.coffeemachine.drinks.SugarStatus.TOO_MUCH_SUGAR;
 
 public abstract class Drink {
   private static final int MAX_SUGARS = 2;
-  private BigDecimal price = new BigDecimal(0.4);
-  private Money priceInMoney = money.of(0.4).build();
   private int numberOfSugars;
+  private boolean isExtraHot = false;
+  Money priceInMoney = money.of(0.4).build();
 
-  public abstract String getDrinkType();
+  abstract String getDrinkType();
 
   public abstract String getDrinkName();
 
+  public boolean canHaveSugar() {
+    return true;
+  }
+
   public BigDecimal getPrice() {
-    return price;
+    return priceInMoney.getAmount();
   }
 
   public Money getPriceInMoney() {
     return priceInMoney;
+  }
+
+  public boolean isEnoughToPay(Money money) {
+    return priceInMoney.isLowerOrEqual(money);
   }
 
   public int getNumberOfSugars() {
@@ -30,6 +39,9 @@ public abstract class Drink {
   }
 
   public SugarStatus addSugar(int numberOfSugars) {
+    if (!canHaveSugar())
+      return SUGAR_NOT_ALLOWED_FOR_THIS_DRINK;
+
     if (numberOfSugars > MAX_SUGARS)
       return TOO_MUCH_SUGAR;
 
@@ -37,8 +49,17 @@ public abstract class Drink {
     return SugarStatus.SUGAR_ADDED;
   }
 
-  public boolean isEnoughToPay(Money money) {
-    return priceInMoney.isLowerOrEqual(money);
+  protected boolean canBeExtraHot() {
+    return true;
+  }
+
+  public void setExtraHot() {
+    if (canBeExtraHot())
+      isExtraHot = true;
+  }
+
+  public String getDrinkTypeAndTemperature() {
+    return getDrinkType() + (isExtraHot ? "h" : "");
   }
 
   @Override
