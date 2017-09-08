@@ -1,12 +1,11 @@
 package fr.coffeemachine.drinks;
 
 import fr.coffeemachine.Money;
-import fr.coffeemachine.order.OrderStatus;
 
 import java.math.BigDecimal;
 
 import static fr.coffeemachine.Money.money;
-import static fr.coffeemachine.order.OrderStatus.TOO_MUCH_SUGAR;
+import static fr.coffeemachine.drinks.SugarStatus.TOO_MUCH_SUGAR;
 
 public abstract class Drink {
   private static final int MAX_SUGARS = 2;
@@ -30,16 +29,12 @@ public abstract class Drink {
     return numberOfSugars;
   }
 
-  public OrderStatus addSugar(int numberOfSugars) {
+  public SugarStatus addSugar(int numberOfSugars) {
     if (numberOfSugars > MAX_SUGARS)
       return TOO_MUCH_SUGAR;
 
     this.numberOfSugars = numberOfSugars;
-    return OrderStatus.SUGAR_ADDED;
-  }
-
-  public boolean isEnoughToPay(BigDecimal money) {
-    return price.compareTo(money) <= 0;
+    return SugarStatus.SUGAR_ADDED;
   }
 
   public boolean isEnoughToPay(Money money) {
