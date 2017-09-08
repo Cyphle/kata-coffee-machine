@@ -3,6 +3,7 @@ package fr.coffeemachine;
 import fr.coffeemachine.drinkmaker.DrinkMaker;
 import fr.coffeemachine.drinks.Coffee;
 import fr.coffeemachine.drinks.Drink;
+import fr.coffeemachine.drinks.OrangeJuice;
 import fr.coffeemachine.order.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,5 +43,14 @@ public class CoffeeMachineFeatureTest {
     machine.orderChargedDrinkOf(coffee, money.of(0.4).build());
 
     verify(drinkMaker).takeOrderOf("C:1:0 M:Drink maker makes 1 coffee with 1 sugar and a stick");
+  }
+
+  @Test
+  public void should_send_a_charged_orange_juice_when_there_is_enough_money() throws Exception {
+    Drink orangeJuice = new OrangeJuice();
+
+    machine.orderChargedDrinkOf(orangeJuice, money.of(0.6).build());
+
+    verify(drinkMaker).takeOrderOf("O:: M:Drink maker makes 1 orange juice");
   }
 }

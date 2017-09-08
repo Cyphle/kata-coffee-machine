@@ -17,6 +17,10 @@ public abstract class Drink {
 
   public abstract String getDrinkName();
 
+  public boolean canHaveSugar() {
+    return true;
+  }
+
   public BigDecimal getPrice() {
     return price;
   }

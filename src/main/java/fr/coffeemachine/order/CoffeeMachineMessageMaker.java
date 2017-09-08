@@ -8,16 +8,15 @@ import static java.math.BigDecimal.ROUND_FLOOR;
 public class CoffeeMachineMessageMaker implements MessageMaker {
   @Override
   public OrderMessage makeMessageForOrderOf(Drink drink) {
-    return new OrderMessage(getBeginningOfSentence() +
-            drink.getDrinkName() +
-            getSugarSentence(drink.getNumberOfSugars()) +
-            getStickSentence(drink.getNumberOfSugars()));
+    String message = getBeginningOfSentence() + drink.getDrinkName();
+    if (drink.canHaveSugar())
+      message += getSugarSentence(drink.getNumberOfSugars()) + getStickSentence(drink.getNumberOfSugars());
+    return new OrderMessage(message);
   }
 
   @Override
   public OrderMessage makeNotEnoughMoneyMessage(Drink drink, Money money) {
-    OrderMessage orderMessage = new OrderMessage("Order for 1 " + drink.getDrinkName() + " at " + drink.getPrice().setScale(2, ROUND_FLOOR) + " euros is missing " + (drink.getPriceInMoney().subtract(money).getAmount().setScale(2, ROUND_FLOOR)) + " euros");
-    return orderMessage;
+    return new OrderMessage("Order for 1 " + drink.getDrinkName() + " at " + drink.getPrice().setScale(2, ROUND_FLOOR) + " euros is missing " + (drink.getPriceInMoney().subtract(money).getAmount().setScale(2, ROUND_FLOOR)) + " euros");
   }
 
   private String getBeginningOfSentence() {

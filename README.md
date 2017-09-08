@@ -36,6 +36,16 @@ The coffee machine is not free anymore! One tea is 0,4 euro, a coffee is 0,6 eur
     - As CoffeeMachine
     - I want to send message to drink maker that tells that money is missing
     - In order for him to forward it to client
+    
+### Step 3
+- I want to be able to buy a orange juice for 0,6 euro
+    - As customer
+    - I want to buy an orange juice for 0.6 euro
+    - In order to drink one
+- I want to be able to have my coffee, chocolate or tea extra hot
+    - As customer
+    - I want to be able to choose the temperature of my hot beverage
+    - In order to have hotter beverage (coffee, tea, chocolate)
 
 #### Drink maker protocol
 Drink maker receives string such as:
@@ -43,6 +53,10 @@ Drink maker receives string such as:
 - "H::" (Drink maker makes 1 chocolate with no sugar -  and therefore no stick)
 - "C:2:0" (Drink maker makes 1 coffee with 2 sugars and a stick)
 - "M:message-content" (Drink maker forwards any message received onto the coffee machine interface for the customer to see)
+- "O::" (Drink maker will make one orange juice)
+- "Ch::" (Drink maker will make an extra hot coffee with no sugar)
+- "Hh:1:0" (Drink maker will make an extra hot chocolate with one sugar and a stick)
+- "Th:2:0" (The drink maker will make an extra hot tea with two sugar and a stick)
 
 ## URL
 http://simcap.github.io/coffeemachine/
