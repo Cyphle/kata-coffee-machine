@@ -62,6 +62,8 @@ public abstract class Drink {
     return getDrinkType() + (isExtraHot ? "h" : "");
   }
 
+  public abstract boolean isEmpty();
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

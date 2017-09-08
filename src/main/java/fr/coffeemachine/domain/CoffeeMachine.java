@@ -4,7 +4,7 @@ import fr.coffeemachine.domain.drinkmaker.DrinkMaker;
 import fr.coffeemachine.domain.order.OrderProcessor;
 import fr.coffeemachine.domain.drinks.Drink;
 
-public class CoffeeMachine implements DrinkMachine {
+public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker {
   private final DrinkMaker drinkMaker;
   private final OrderProcessor orderProcessor;
   private final SaleRepository saleRepository;
@@ -16,17 +16,19 @@ public class CoffeeMachine implements DrinkMachine {
   }
 
   @Override
-  public void orderDrinkOf(Drink drink) {
-    drinkMaker.makeDrinkFromOrder(orderProcessor.makeDrinkOrder(drink));
-  }
-
-  @Override
   public void orderChargedDrinkOf(Drink drink, Money money) {
-    if (drink.isEnoughToPay(money)) {
+    if (isEmpty(drink))
+      drinkMaker.takeOrderOf(orderProcessor.makeOrderWithBeverageShortage(drink));
+    else if (drink.isEnoughToPay(money)) {
       drinkMaker.takeOrderOf(orderProcessor.makeOrderWithMessage(drink));
       saleRepository.addSell(drink);
     } else {
       drinkMaker.takeOrderOf(orderProcessor.makeOrderWithNotEnoughMoney(drink, money));
     }
+  }
+
+  @Override
+  public boolean isEmpty(Drink drink) {
+    return drink.isEmpty();
   }
 }
