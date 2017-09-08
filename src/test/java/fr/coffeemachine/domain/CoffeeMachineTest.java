@@ -1,5 +1,6 @@
 package fr.coffeemachine.domain;
 
+import fr.coffeemachine.domain.drinks.DrinkEnum;
 import fr.coffeemachine.drinkmaker.DrinkMaker;
 import fr.coffeemachine.domain.drinks.Coffee;
 import fr.coffeemachine.domain.drinks.Drink;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static fr.coffeemachine.domain.Money.money;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.COFFEE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
@@ -35,12 +37,9 @@ public class CoffeeMachineTest {
 
   @Test
   public void should_save_order_in_repository_if_enough_money() throws Exception {
-    Drink coffee = new Coffee();
+    machine.orderDrinkOf(new DrinkEnum(COFFEE), money.of(0.4).build());
 
-    machine.orderDrinkOf(coffee, money.of(0.4).build());
-
-    verify(drinkMaker).takeOrderOf(orderProcessor.makeOrderWithMessage(new Coffee()));
-    verify(saleRepository).addSell(coffee);
+    verify(saleRepository).addSell(new DrinkEnum(COFFEE));
   }
 
   @Test

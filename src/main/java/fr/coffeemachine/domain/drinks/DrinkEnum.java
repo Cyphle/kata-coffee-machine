@@ -60,6 +60,26 @@ public class DrinkEnum {
       this.isExtraHot = true;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    DrinkEnum drinkEnum = (DrinkEnum) o;
+
+    if (sugarNumber != drinkEnum.sugarNumber) return false;
+    if (isExtraHot != drinkEnum.isExtraHot) return false;
+    return drink == drinkEnum.drink;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = sugarNumber;
+    result = 31 * result + (isExtraHot ? 1 : 0);
+    result = 31 * result + (drink != null ? drink.hashCode() : 0);
+    return result;
+  }
+
   public enum InternalDrinkEnum {
     COFFEE("C", money.of(0.4).build(), new Quantity(10)),
     TEA("T", money.of(0.4).build(), new Quantity(10)),

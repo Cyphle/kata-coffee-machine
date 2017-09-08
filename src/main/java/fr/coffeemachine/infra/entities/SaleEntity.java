@@ -1,6 +1,7 @@
 package fr.coffeemachine.infra.entities;
 
 import fr.coffeemachine.domain.drinks.Drink;
+import fr.coffeemachine.domain.drinks.DrinkEnum;
 import fr.coffeemachine.domain.drinks.DrinkFactory;
 import fr.coffeemachine.domain.statistics.Sale;
 
@@ -31,6 +32,12 @@ public class SaleEntity {
   }
 
   public static SaleEntity fromDomainToEntity(Drink drink) {
+    SaleEntity sale = new SaleEntity();
+    sale.setDrinkName(drink.getDrinkName());
+    return sale;
+  }
+
+  public static SaleEntity fromDomainToEntity(DrinkEnum drink) {
     SaleEntity sale = new SaleEntity();
     sale.setDrinkName(drink.getDrinkName());
     return sale;

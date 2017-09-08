@@ -24,6 +24,7 @@ import java.util.Date;
 import static fr.coffeemachine.domain.Money.money;
 import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.COFFEE;
 import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.ORANGE_JUICE;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.TEA;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -100,26 +101,31 @@ public class CoffeeMachineFeatureTest {
 
   @Test
   public void should_send_charge_orange_juice_and_not_add_extra_hot_when_there_is_enough_money_and_is_asked_extra_hot() throws Exception {
-    Drink orangeJuice = new OrangeJuice();
+    DrinkEnum orangeJuice = new DrinkEnum(ORANGE_JUICE);
     orangeJuice.setExtraHot();
+    String order = machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
 
-    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
-
-    verify(drinkMaker).takeOrderOf("O:: M:Drink maker makes 1 orange juice");
+    assertThat(order).isEqualTo("O:: M:Drink maker makes 1 orange juice");
   }
 
   @Test
   public void should_get_statistics_of_sells_when_asked_for() throws Exception {
-    Drink coffee = new Coffee();
-    Drink tea = new Tea();
-    Drink teaWithSugar = new Tea();
-    teaWithSugar.addSugar(1);
-    Drink orangeJuice = new OrangeJuice();
+//    Drink coffee = new Coffee();
+//    Drink tea = new Tea();
+//    Drink teaWithSugar = new Tea();
+//    teaWithSugar.addSugar(1);
+//    Drink orangeJuice = new OrangeJuice();
 
-    machine.orderDrinkOf(coffee, money.of(0.4).build());
-    machine.orderDrinkOf(tea, money.of(0.4).build());
+//    machine.orderDrinkOf(coffee, money.of(0.4).build());
+//    machine.orderDrinkOf(tea, money.of(0.4).build());
+//    machine.orderDrinkOf(teaWithSugar, money.of(0.4).build());
+//    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
+    machine.orderDrinkOf(new DrinkEnum(COFFEE), money.of(0.4).build());
+    machine.orderDrinkOf(new DrinkEnum(TEA), money.of(0.4).build());
+    DrinkEnum teaWithSugar = new DrinkEnum(TEA);
+    teaWithSugar.withSugar(1);
     machine.orderDrinkOf(teaWithSugar, money.of(0.4).build());
-    machine.orderDrinkOf(orangeJuice, money.of(0.6).build());
+    machine.orderDrinkOf(new DrinkEnum(ORANGE_JUICE), money.of(0.6).build());
 
     statisticsBuilder.printStatisticsOfToday(console);
     

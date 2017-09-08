@@ -24,7 +24,7 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
       return orderProcessor.makeOrderWithNotEnoughMoney(drink, money);
 
 //    drink.decreaseNumberAvailableBeverage();
-//    saleRepository.addSell(drink);
+    saleRepository.addSell(drink);
     return orderProcessor.makeOrderWithMessage(drink);
   }
 
