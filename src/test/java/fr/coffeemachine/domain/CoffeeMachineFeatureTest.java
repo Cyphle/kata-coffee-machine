@@ -22,9 +22,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import static fr.coffeemachine.domain.Money.money;
-import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.COFFEE;
-import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.ORANGE_JUICE;
-import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.TEA;
+import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -119,18 +117,16 @@ public class CoffeeMachineFeatureTest {
 
     statisticsBuilder.printStatisticsOfToday(console);
 
-    assertThat(console.flush()).isEqualTo("Sells : 1 coffee - 2 teas - 1 orange juice\nTotal : 1.80 euros");
+    assertThat(console.flush()).isEqualTo("Sells : 1 coffee - 1 orange juice - 2 teas\nTotal : 1.80 euros");
   }
 
   @Test
   public void should_send_notification_and_inform_customer_when_beverage_is_no_more_available() throws Exception {
-    Drink chocolate = new Chocolate();
+    String order = machine.orderDrinkOf(new DrinkEnum(CHOCOLATE), money.of(0.4).build());
+    String notAvailableMessage = machine.orderDrinkOf(new DrinkEnum(CHOCOLATE), money.of(0.4).build());
 
-    machine.orderDrinkOf(chocolate, money.of(0.4).build());
-    machine.orderDrinkOf(chocolate, money.of(0.4).build());
-
-    verify(drinkMaker).takeOrderOf("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
-    verify(drinkMaker).takeOrderOf("M:Sorry but chocolate is not available at the moment");
-    verify(emailSender).sendBeverageShortageNotification(new Chocolate());
+    assertThat(order).isEqualTo("H:: M:Drink maker makes 1 chocolate with no sugar - and therefore no stick");
+    assertThat(notAvailableMessage).isEqualTo("M:Sorry but chocolate is not available at the moment");
+    verify(emailSender).sendBeverageShortageNotification(new DrinkEnum(CHOCOLATE));
   }
 }

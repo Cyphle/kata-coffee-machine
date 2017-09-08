@@ -13,9 +13,12 @@ public interface OrderProcessor {
   String createOrderOf(DrinkEnum drink);
 
   @Deprecated
-  String makeOrderWithNotEnoughMoney(Drink drink, Money money);
+  String createOrderForNotEnoughMoney(Drink drink, Money money);
 
-  String makeOrderWithNotEnoughMoney(DrinkEnum drink, Money money);
+  String createOrderForNotEnoughMoney(DrinkEnum drink, Money money);
 
-  String makeOrderWithBeverageShortage(Drink drink);
+  @Deprecated
+  String createOrderForBeverageShortage(Drink drink);
+
+  String createOrderForBeverageShortage(DrinkEnum drink);
 }

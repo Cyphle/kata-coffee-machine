@@ -1,7 +1,7 @@
 package fr.coffeemachine.domain.statistics;
 
 public class Quantity {
-  private final int quantity;
+  private int quantity;
 
   public Quantity(int quantity) {
     this.quantity = quantity;
@@ -28,5 +28,9 @@ public class Quantity {
   @Override
   public int hashCode() {
     return quantity;
+  }
+
+  public void decreaseBy(int amountToDecrease) {
+    quantity -= amountToDecrease;
   }
 }

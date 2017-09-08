@@ -9,7 +9,7 @@ import java.util.Arrays;
 import static fr.coffeemachine.domain.Money.money;
 import static fr.coffeemachine.domain.drinks.DrinkEnum.InternalDrinkEnum.ORANGE_JUICE;
 
-public class DrinkEnum {
+public class DrinkEnum implements Comparable<DrinkEnum> {
   private int sugarNumber = 0;
   private boolean isExtraHot = false;
   private InternalDrinkEnum drink;
@@ -69,6 +69,11 @@ public class DrinkEnum {
   }
 
   @Override
+  public int compareTo(DrinkEnum o) {
+    return drink.toString().compareTo(o.drink.toString());
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -86,6 +91,10 @@ public class DrinkEnum {
     result = 31 * result + (isExtraHot ? 1 : 0);
     result = 31 * result + (drink != null ? drink.hashCode() : 0);
     return result;
+  }
+
+  public void decreaseNumberAvailableDrink() {
+    drink.decreaseNumberAvailableDrink();
   }
 
   public enum InternalDrinkEnum {
@@ -126,6 +135,10 @@ public class DrinkEnum {
 
     public boolean isEnoughToPay(Money paidAmount) {
       return calculateMissingMoney(paidAmount).isInferiorOrEqualAs(money.of(0).build());
+    }
+
+    public void decreaseNumberAvailableDrink() {
+      quantity.decreaseBy(1);
     }
   }
 }

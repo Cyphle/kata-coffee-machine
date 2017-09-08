@@ -37,10 +37,10 @@ public class StatisticsBuilderTest {
 
   @Test
   public void should_build_statistics_for_current_day() throws Exception {
-    Sale coffeeSale = new Sale(dateService.getTodayLocaleDate(), new Coffee());
-    Sale teaSale = new Sale(dateService.getTodayLocaleDate(), new Tea());
-    Sale otherTeaSale = new Sale(dateService.getTodayLocaleDate(), new Tea());
-    Sale orangeJuiceSale = new Sale(dateService.getTodayLocaleDate(), new OrangeJuice());
+    Sale coffeeSale = new Sale(dateService.getTodayLocaleDate(), new DrinkEnum(COFFEE));
+    Sale teaSale = new Sale(dateService.getTodayLocaleDate(), new DrinkEnum(TEA));
+    Sale otherTeaSale = new Sale(dateService.getTodayLocaleDate(), new DrinkEnum(TEA));
+    Sale orangeJuiceSale = new Sale(dateService.getTodayLocaleDate(), new DrinkEnum(ORANGE_JUICE));
     given(saleRepository.getSalesOf(dateService.getTodayDate())).willReturn(Arrays.asList(coffeeSale, teaSale, otherTeaSale, orangeJuiceSale));
 
     statisticsBuilder.printStatisticsOfToday(console);

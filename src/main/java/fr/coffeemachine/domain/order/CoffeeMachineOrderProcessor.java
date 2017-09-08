@@ -54,13 +54,13 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String makeOrderWithNotEnoughMoney(Drink drink, Money money) {
+  public String createOrderForNotEnoughMoney(Drink drink, Money money) {
     OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
     return orderMessage.getMessageForDrinkMaker();
   }
 
   @Override
-  public String makeOrderWithNotEnoughMoney(DrinkEnum drink, Money money) {
+  public String createOrderForNotEnoughMoney(DrinkEnum drink, Money money) {
     return "M:Order for 1 "
             + drink.getDrinkName()
             + " at "
@@ -71,8 +71,13 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String makeOrderWithBeverageShortage(Drink drink) {
+  public String createOrderForBeverageShortage(Drink drink) {
     OrderMessage orderMessage = orderMessageMaker.makeBeverageShortageMessage(drink);
     return orderMessage.getMessageForDrinkMaker();
+  }
+
+  @Override
+  public String createOrderForBeverageShortage(DrinkEnum drink) {
+    return "M:Sorry but " + drink.getDrinkName() + " is not available at the moment";
   }
 }

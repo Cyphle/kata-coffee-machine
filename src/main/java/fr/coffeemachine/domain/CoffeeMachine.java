@@ -21,9 +21,14 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   @Override
   public String orderDrinkOf(DrinkEnum drink, Money money) {
     if (!drink.isEnoughToPay(money))
-      return orderProcessor.makeOrderWithNotEnoughMoney(drink, money);
+      return orderProcessor.createOrderForNotEnoughMoney(drink, money);
 
-//    drink.decreaseNumberAvailableBeverage();
+    if (isEmpty(drink)) {
+      notifyMissingDrink(drink);
+      return orderProcessor.createOrderForBeverageShortage(drink);
+    }
+
+    drink.decreaseNumberAvailableDrink();
     saleRepository.addSell(drink);
     return orderProcessor.createOrderOf(drink);
   }
@@ -54,8 +59,13 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
     emailSender.sendBeverageShortageNotification(drink);
   }
 
+  @Override
+  public void notifyMissingDrink(DrinkEnum drink) {
+    emailSender.sendBeverageShortageNotification(drink);
+  }
+
   private void processNotEnoughMoney(Drink drink, Money money) {
-    drinkMaker.takeOrderOf(orderProcessor.makeOrderWithNotEnoughMoney(drink, money));
+    drinkMaker.takeOrderOf(orderProcessor.createOrderForNotEnoughMoney(drink, money));
   }
 
   private void processDrinkOrder(Drink drink) {
@@ -65,7 +75,7 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   }
 
   private void processBeverageShortage(Drink drink) {
-    drinkMaker.takeOrderOf(orderProcessor.makeOrderWithBeverageShortage(drink));
+    drinkMaker.takeOrderOf(orderProcessor.createOrderForBeverageShortage(drink));
     notifyMissingDrink(drink);
   }
 }
