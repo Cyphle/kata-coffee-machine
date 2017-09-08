@@ -20,14 +20,11 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   @Override
   public void orderChargedDrinkOf(Drink drink, Money money) {
     if (isEmpty(drink)) {
-      drinkMaker.takeOrderOf(orderProcessor.makeOrderWithBeverageShortage(drink));
-      notifyMissingDrink(drink);
+      processBeverageShortage(drink);
     } else if (drink.isEnoughToPay(money)) {
-      drink.decreaseNumberAvailableBeverage();
-      drinkMaker.takeOrderOf(orderProcessor.makeOrderWithMessage(drink));
-      saleRepository.addSell(drink);
+      processDrinkOrder(drink);
     } else {
-      drinkMaker.takeOrderOf(orderProcessor.makeOrderWithNotEnoughMoney(drink, money));
+      processNotEnoughMoney(drink, money);
     }
   }
 
@@ -39,5 +36,20 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   @Override
   public void notifyMissingDrink(Drink drink) {
     emailSender.sendBeverageShortageNotification(drink);
+  }
+
+  private void processNotEnoughMoney(Drink drink, Money money) {
+    drinkMaker.takeOrderOf(orderProcessor.makeOrderWithNotEnoughMoney(drink, money));
+  }
+
+  private void processDrinkOrder(Drink drink) {
+    drink.decreaseNumberAvailableBeverage();
+    drinkMaker.takeOrderOf(orderProcessor.makeOrderWithMessage(drink));
+    saleRepository.addSell(drink);
+  }
+
+  private void processBeverageShortage(Drink drink) {
+    drinkMaker.takeOrderOf(orderProcessor.makeOrderWithBeverageShortage(drink));
+    notifyMissingDrink(drink);
   }
 }
