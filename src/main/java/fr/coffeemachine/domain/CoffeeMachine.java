@@ -18,7 +18,7 @@ public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, Ema
   }
 
   @Override
-  public void orderChargedDrinkOf(Drink drink, Money money) {
+  public void orderDrinkOf(Drink drink, Money money) {
     if (isEmpty(drink)) {
       processBeverageShortage(drink);
     } else if (drink.isEnoughToPay(money)) {
