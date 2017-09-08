@@ -12,7 +12,7 @@ import static fr.coffeemachine.domain.order.Drink.AvailableDrink.ORANGE_JUICE;
 public class Drink implements Comparable<Drink> {
   private int sugarNumber = 0;
   private boolean isExtraHot = false;
-  private AvailableDrink drink;
+  private final AvailableDrink drink;
 
   public Drink(AvailableDrink drink) {
     this.drink = drink;
@@ -103,9 +103,9 @@ public class Drink implements Comparable<Drink> {
     CHOCOLATE("H", money.of(0.4).build(), new Quantity(1)),
     ORANGE_JUICE("O", money.of(0.6).build(), new Quantity(10));
 
-    public final String code;
-    public final Money price;
-    public Quantity quantity;
+    final String code;
+    final Money price;
+    final Quantity quantity;
 
     AvailableDrink(String code, Money price, Quantity quantity) {
       this.code = code;
@@ -113,31 +113,30 @@ public class Drink implements Comparable<Drink> {
       this.quantity = quantity;
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
       return quantity.isZero();
     }
 
-    public String getDrinkName() {
-      return Arrays.asList(toString().split("_"))
-              .stream()
+    String getDrinkName() {
+      return Arrays.stream(toString().split("_"))
               .reduce("", (namePart, namePartTwo) -> namePart + " " + namePartTwo)
               .trim()
               .toLowerCase();
     }
 
-    public BigDecimal getPrice() {
+    BigDecimal getPrice() {
       return price.getAmount();
     }
 
-    public Money calculateMissingMoney(Money paidAmount) {
+    Money calculateMissingMoney(Money paidAmount) {
       return price.subtract(paidAmount);
     }
 
-    public boolean isEnoughToPay(Money paidAmount) {
+    boolean isEnoughToPay(Money paidAmount) {
       return calculateMissingMoney(paidAmount).isInferiorOrEqualAs(money.of(0).build());
     }
 
-    public void decreaseNumberAvailableDrink() {
+    void decreaseNumberAvailableDrink() {
       quantity.decreaseBy(1);
     }
   }

@@ -3,7 +3,6 @@ package fr.coffeemachine.infra.entities;
 import fr.coffeemachine.domain.order.Drink;
 import fr.coffeemachine.domain.statistics.Sale;
 
-import java.time.ZoneId;
 import java.util.Date;
 
 public class SaleEntity {
@@ -26,7 +25,7 @@ public class SaleEntity {
   }
 
   public Sale fromEntityToDomain() {
-    return new Sale(sellingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), new Drink(Drink.AvailableDrink.valueOf(drinkName)));
+    return new Sale(new Drink(Drink.AvailableDrink.valueOf(drinkName)));
   }
 
   public static SaleEntity fromDomainToEntity(Drink drink) {

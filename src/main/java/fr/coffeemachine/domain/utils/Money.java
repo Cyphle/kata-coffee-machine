@@ -17,10 +17,6 @@ public class Money {
     return amount.setScale(2, ROUND_FLOOR);
   }
 
-  public boolean isLowerOrEqual(Money money) {
-    return amount.compareTo(money.amount) <= 0;
-  }
-
   public Money add(Money amountToAdd) {
     return money.of(amount.add(amountToAdd.amount)).build();
   }

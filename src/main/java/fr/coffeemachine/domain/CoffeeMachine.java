@@ -10,7 +10,7 @@ import fr.coffeemachine.domain.utils.Money;
 public class CoffeeMachine implements DrinkMachine, BeverageQuantityChecker, EmailNotifier {
   private final OrderProcessor orderProcessor;
   private final SaleRepository saleRepository;
-  private EmailSender emailSender;
+  private final EmailSender emailSender;
 
   CoffeeMachine(OrderProcessor orderProcessor, SaleRepository saleRepository, EmailSender emailSender) {
     this.orderProcessor = orderProcessor;

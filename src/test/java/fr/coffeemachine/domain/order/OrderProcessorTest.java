@@ -8,7 +8,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static fr.coffeemachine.domain.order.Drink.AvailableDrink.CHOCOLATE;
 import static fr.coffeemachine.domain.order.Drink.AvailableDrink.COFFEE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderProcessorTest {
