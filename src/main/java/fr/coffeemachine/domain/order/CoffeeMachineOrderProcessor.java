@@ -1,7 +1,6 @@
 package fr.coffeemachine.domain.order;
 
 import fr.coffeemachine.domain.Money;
-import fr.coffeemachine.domain.drinks.Drink;
 import fr.coffeemachine.domain.drinks.DrinkEnum;
 
 public class CoffeeMachineOrderProcessor implements OrderProcessor {
@@ -36,12 +35,6 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
   }
 
   @Override
-  public String createOrderForNotEnoughMoney(Drink drink, Money money) {
-    OrderMessage orderMessage = orderMessageMaker.makeNotEnoughMoneyMessage(drink, money);
-    return orderMessage.getMessageForDrinkMaker();
-  }
-
-  @Override
   public String createOrderForNotEnoughMoney(DrinkEnum drink, Money money) {
     return "M:Order for 1 "
             + drink.getDrinkName()
@@ -50,12 +43,6 @@ public class CoffeeMachineOrderProcessor implements OrderProcessor {
             + " euros is missing "
             + drink.calculateMissingMoney(money).getAmount()
             + " euros";
-  }
-
-  @Override
-  public String createOrderForBeverageShortage(Drink drink) {
-    OrderMessage orderMessage = orderMessageMaker.makeBeverageShortageMessage(drink);
-    return orderMessage.getMessageForDrinkMaker();
   }
 
   @Override
